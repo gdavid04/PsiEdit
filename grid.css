@@ -1,0 +1,37 @@
+body {
+	--cell-size: calc(var(--piece-size) + 2 * var(--edge-size));
+	--selection-size: calc(3 * var(--pixel-size));
+	--grid-width: 9; --grid-height: 9;
+}
+
+.grid {
+	width: min-content; height: min-content;
+	display: grid;
+	grid-template: repeat(var(--grid-height), var(--cell-size)) / repeat(var(--grid-width), var(--cell-size));
+	grid-auto-flow: column;
+}
+
+.cell {
+	position: relative;
+	width: var(--piece-size); height: var(--piece-size);
+	border: var(--edge-size) solid;
+	background-color: var(--color-cell-bg);
+	border-top-color: var(--color-cell-edge-dark); border-left-color: var(--color-cell-edge-dark);
+	border-bottom-color: var(--color-cell-edge-bright); border-right-color: var(--color-cell-edge-bright);
+}
+
+.selection {
+	position: absolute;
+	width: var(--selection-size); height: var(--selection-size);
+	z-index: 2000;
+	border: var(--edge-size) solid var(--color-selection);
+}
+
+.selection.top { top: var(--edge-size); border-bottom: none; }
+.selection.bottom { bottom: var(--edge-size); border-top: none; }
+.selection.left { left: var(--edge-size); border-right: none; }
+.selection.right { right: var(--edge-size); border-left: none; }
+
+.selected .selection { --color-selection: var(--color-selected); }
+.cell:hover .selection { --color-selection: var(--color-hover); }
+.cell.selected:hover .selection.right { --color-selection: var(--color-selected); }

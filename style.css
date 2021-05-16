@@ -1,0 +1,22 @@
+@import 'util.css';
+@import 'grid.css';
+@import 'piece.css';
+@import 'catalog.css';
+@import 'theme.css';
+
+body {
+	--scale: 4;
+	--pixel-size: calc(1px * var(--scale));
+	--edge-size: var(--pixel-size);
+	--color-selection: transparent;
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	text-shadow: var(--pixel-size) var(--pixel-size) var(--color-text-shadow);
+	user-select: none;
+}
+
+* {
+	background-size: 100% 100%;
+	image-rendering: crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+}

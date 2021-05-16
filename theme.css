@@ -1,0 +1,37 @@
+body {
+	--color-bg: rgb(40, 40, 40);
+	--color-cell-bg: rgb(28, 28, 28);
+	--color-cell-edge-bright: rgb(51, 51, 51);
+	--color-cell-edge-dark: rgb(11, 11, 11);
+	--color-piece-bg: rgb(21, 21, 21);
+	--color-piece-edge-bright: rgb(42, 42, 42);
+	--color-piece-edge-dark: rgb(11, 11, 11);
+	--color-fg: rgb(255, 255, 255);
+	--color-fg-shadow: rgb(0, 0, 0);
+	--color-fg-dark: rgb(91, 91, 91);
+	--color-selected: rgb(0, 255, 0);
+	--color-hover: rgb(255, 0, 0);
+	--color-catalog-bg: rgba(0, 0, 0, calc(136 / 255));
+	--color-catalog-hover: rgba(153, 153, 255, calc(85 / 255));
+	--color-text: rgb(255, 255, 255);
+	--color-text-shadow: rgb(25, 25, 25);
+	--color-param-other: rgb(200, 200, 200);
+	font: calc(8 * var(--pixel-size)) mc;
+}
+
+[data-color=red] { --color-param: #D22A2A; }
+[data-color=green] { --color-param: #3ED22A; }
+[data-color=blue] { --color-param: #2A55D2; }
+[data-color=purple] { --color-param: #752AD2; }
+[data-color=cyan] { --color-param: #2AD0D2; }
+[data-color=yellow] { --color-param: #D2CC2A; }
+[data-color=gray] { --color-param: #767676; }
+[data-color=brown] { --color-param: #664000; }
+
+[data-color=cross1] { --color-param: #A0A0A0; }
+[data-color=cross2] { --color-param: #A040FF; }
+
+@font-face {
+	font-family: mc;
+	src: url('mc.otf') format('opentype');
+}

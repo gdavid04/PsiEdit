@@ -1,0 +1,21 @@
+body {
+	--catalog-width: 4; --catalog-height: 5;
+}
+
+.catalog {
+	position: relative;
+	width: calc(var(--catalog-width) * var(--cell-size) + 4 * var(--pixel-size)); height: calc(var(--catalog-height) * var(--cell-size));
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+	overflow-y: scroll;
+	background-color: var(--color-catalog-bg);
+}
+
+.catalog-item {
+	padding: var(--edge-size);
+	background-color: var(--color-selection);
+}
+
+.catalog-item:hover { --color-selection: var(--color-catalog-hover); }

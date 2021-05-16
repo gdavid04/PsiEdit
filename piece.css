@@ -1,0 +1,63 @@
+body {
+	--piece-size: calc(16 * var(--pixel-size));
+	--param-size: calc(6 * var(--pixel-size));
+	--param-inner-size: calc(3 * var(--pixel-size));
+}
+
+.piece {
+	position: relative;
+	width: var(--piece-size); height: var(--piece-size);
+	color: var(--color-fg);
+	text-shadow: var(--pixel-size) var(--pixel-size) var(--color-fg-shadow);
+	background-image: var(--piece-icon);
+}
+
+.piece-config {
+	width: calc(65 * var(--pixel-size)); height: calc(4 * 3 * var(--param-size));
+}
+
+.param-control {
+	position: relative;
+	width: 100%; height: calc(3 * var(--param-size));
+	color: var(--color-param);
+}
+
+.param-control [data-name]::before {
+	content: var(--param-name);
+}
+
+.param-control[data-optional] .param[data-side=off] { visibility: visible; }
+
+.param-control .param[data-side=top] { top: 0; right: var(--param-size); }
+.param-control .param[data-side=bottom] { bottom: 0; right: var(--param-size); }
+.param-control .param[data-side=left] { right: calc(2 * var(--param-size)); top: var(--param-size); }
+.param-control .param[data-side=right] { right: 0; top: var(--param-size); }
+.param-control .param[data-side=off] { top: var(--param-size); right: var(--param-size); }
+
+.param-control[data-side=top] .param:not([data-side=top]),
+.param-control[data-side=bottom] .param:not([data-side=bottom]),
+.param-control[data-side=left] .param:not([data-side=left]),
+.param-control[data-side=right] .param:not([data-side=right]),
+.param-control:not([data-side]) .param:not([data-side=off]),
+.param-control[data-side=off] .param:not([data-side=off]) {
+	--color-param: var(--color-param-other);
+}
+
+.piece .param[data-arrow=none] { display: contents; }
+
+.piece .param[data-side=top] { top: calc(-2.5 * var(--pixel-size)); left: calc(50% - var(--param-inner-size)); }
+.piece .param[data-side=bottom] { bottom: calc(-2.5 * var(--pixel-size)); left: calc(50% - var(--param-inner-size)); }
+.piece .param[data-side=left] { left: calc(-2.5 * var(--pixel-size)); top: calc(50% - var(--param-inner-size)); }
+.piece .param[data-side=right] { right: calc(-2.5 * var(--pixel-size)); top: calc(50% - var(--param-inner-size)); }
+
+.param[data-side] {
+	position: absolute;
+	border: var(--param-inner-size) solid transparent;
+	z-index: 1000;
+}
+
+.param[data-side=top] { border-top-color: var(--color-param); }
+.param[data-side=bottom] { border-bottom-color: var(--color-param); }
+.param[data-side=left] { border-left-color: var(--color-param); }
+.param[data-side=right] { border-right-color: var(--color-param); }
+.param[data-side=off] { background-color: var(--color-param); border-radius: 50%; visibility: hidden; }

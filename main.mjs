@@ -1,6 +1,6 @@
 import { createGrid, selectCell, exportGrid } from './grid.mjs';
-import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces } from './piece.mjs';
-import { loadHTML, bound } from './util.mjs';
+import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide } from './piece.mjs';
+import { loadHTML, bound, inBound } from './util.mjs';
 
 const size = 9;
 const width = size, height = size;
@@ -57,11 +57,16 @@ document.addEventListener('keydown', e => {
 		if (e.key == 'ArrowDown') setParamSide(param, getParamSide(param) == 'bottom' && isParamOptional(param) ? 'off' : 'bottom', selected, editor);
 		return;
 	}
-	let x = selected.x, y = selected.y;
-	if (e.key == 'ArrowLeft') x--;
-	if (e.key == 'ArrowRight') x++;
-	if (e.key == 'ArrowUp') y--;
-	if (e.key == 'ArrowDown') y++;
+	let x = selected.x, y = selected.y, direction = 'off';
+	if (e.key == 'ArrowLeft') { x--; direction = 'left'; }
+	if (e.key == 'ArrowRight') { x++; direction = 'right'; }
+	if (e.key == 'ArrowUp') { y--; direction = 'top'; }
+	if (e.key == 'ArrowDown') { y++; direction = 'bottom'; }
+	if (e.shiftKey && inBound(x, width) && inBound(y, height) && direction != 'off' && !cells[x][y].piece) {
+		let connector = createPiece(pieces.connector);
+		setParamSide(connector.querySelector('.param[data-key=_target]'), oppositeSide(direction));
+		setPiece(cells[x][y], connector);
+	}
 	selectCell(cells, selected, bound(x, width), bound(y, height), editor);
 	if (e.key == 'e') alert(JSON.stringify(exportGrid(cells)));
 });

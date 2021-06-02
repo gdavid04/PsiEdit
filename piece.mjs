@@ -18,7 +18,6 @@ export function createPiece(template) {
 
 export function setParamSide(param, side, selected = null, editor = null) {
 	param.dataset.side = side;
-	console.log(editor, selected);
 	if (editor) createEditor(editor, selected);
 }
 
@@ -109,4 +108,8 @@ export function exportPiece(piece) {
 
 function sideToInt(side) {
 	return { off: 0, top: 1, bottom: 2, left: 3, right: 4 }[side || 'off'];
+}
+
+export function oppositeSide(side) {
+	return { left: 'right', right: 'left', top: 'bottom', bottom: 'top', off: 'off' }[side];
 }

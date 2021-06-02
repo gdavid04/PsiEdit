@@ -25,3 +25,7 @@ export function clamp(value, min, max) {
 export function bound(index, size) {
 	return clamp(index, 0, size - 1);
 }
+
+export function inBound(index, size) {
+	return index >= 0 && index < size;
+}

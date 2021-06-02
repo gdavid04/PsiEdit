@@ -1,0 +1,30 @@
+.line {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background-position: var(--line-pos);
+	background-size: calc(2 * var(--line-scale));
+	background-image: var(--line-icon);
+	--line-scale: 100%;
+}
+
+.line[data-color] {
+	background-color: var(--color-param);
+	background-blend-mode: multiply;
+	mask-position: var(--line-pos);
+	mask-image: var(--line-icon);
+	mask-mode: alpha;
+	mask-size: calc(2 * var(--line-scale));
+}
+
+.line:not([data-side]), .line[data-side=off] { visibility: hidden; }
+
+.line[data-side=top] { --line-pos: 0 100%; }
+.line[data-side=bottom] { --line-pos: var(--line-scale) 100%; }
+.line[data-side=left] { --line-pos: var(--line-scale) 0; }
+.line[data-side=right] { --line-pos: 0 0; }
+
+.line[data-half='1'][data-side=left], .line[data-half='1'][data-side=right] { clip-path: inset(0 0 50% 0); }
+.line[data-half='1'][data-side=top], .line[data-half='1'][data-side=bottom] { clip-path: inset(0 50% 0 0); }
+.line[data-half='2'][data-side=left], .line[data-half='2'][data-side=right] { clip-path: inset(50% 0 0 0); }
+.line[data-half='2'][data-side=top], .line[data-half='2'][data-side=bottom] { clip-path: inset(0 0 0 50%); }

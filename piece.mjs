@@ -19,6 +19,8 @@ export function createPiece(template) {
 export function setParamSide(param, side, selected = null, editor = null) {
 	param.dataset.side = side;
 	if (editor) createEditor(editor, selected);
+	let line = param.parentNode.querySelector(`.line[data-trigger='${param.dataset.key}']`);
+	if (line) line.dataset.side = side;
 }
 
 export function getParamSide(param) {

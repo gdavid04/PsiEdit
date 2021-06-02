@@ -40,7 +40,10 @@
 	<div class="param" data-name="X" data-key="_x" data-color="red" data-arrow="none" data-optional></div>
 	<div class="param" data-name="Y" data-key="_y" data-color="green" data-arrow="none" data-optional></div>
 	<div class="param" data-name="Z" data-key="_z" data-color="blue" data-arrow="none" data-optional></div>
-	<!-- TODO lines -->
+	<div class="line" data-trigger="_vector" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_x" data-color="red" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_y" data-color="green" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_z" data-color="blue" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
 </div>
 <div class="piece" data-type="connector_clockwise" data-sorting-name="00000000000-">
 	<!-- TODO arrows -->
@@ -51,11 +54,16 @@
 <div class="piece" data-type="connector_bidirectional" data-sorting-name="00000000000-">
 	<div class="param" data-name="From / To" data-key="phi.spellparam.from_to" data-color="gray" data-arrow="bidir"></div>
 	<div class="param" data-name="To / From" data-key="phi.spellparam.to_from" data-color="gray" data-arrow="bidir"></div>
-	<!-- TODO arrows, lines -->
+	<!-- TODO arrows -->
+	<div class="line" data-trigger="phi.spellparam.from_to" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to_from" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
 </div>
 <div class="piece" data-type="connector_in_out" data-sorting-name="00000000000-">
 	<div class="param" data-name="From" data-key="phi.spellparam.from" data-color="gray"></div>
 	<div class="param" data-name="To / From" data-key="phi.spellparam.to_from" data-color="gray" data-arrow="bidir"></div>
 	<div class="param" data-name="To" data-key="phi.spellparam.to" data-color="gray" data-arrow="none"></div>
-	<!-- TODO arrows, lines -->
+	<!-- TODO arrows -->
+	<div class="line" data-trigger="phi.spellparam.from" data-half="1" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to_from" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to" data-half="2" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
 </div>

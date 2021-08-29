@@ -54,6 +54,8 @@ export function exportGrid(cells) {
 		}
 	}
 	return {
+		modsRequired: [], // TODO required mods list, for now this is here to remove the compatibility warning on import
+		validSpell: true,
 		spellName: 'PsiEdit', // TODO custom name
 		spellList: res
 	};

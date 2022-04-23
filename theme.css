@@ -19,6 +19,8 @@ body {
 	font: calc(8 * var(--pixel-size)) mc;
 }
 
+[data-value] { font: calc(8 * var(--pixel-size) * var(--scale-value)) mc; }
+
 [data-color=red] { --color-param: #D22A2A; }
 [data-color=green] { --color-param: #3ED22A; }
 [data-color=blue] { --color-param: #2A55D2; }

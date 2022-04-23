@@ -1,10 +1,11 @@
 import { createGrid, selectCell, exportGrid } from './grid.mjs';
-import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide } from './piece.mjs';
+import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
 const size = 9;
 const width = size, height = size;
 const grid = document.querySelector('#spell-grid');
+const search = document.querySelector('#search');
 let selected = {};
 let editor = { element: document.querySelector('#piece-config'), controls: [], params: [] };
 let cells = createGrid(grid, width, height, editor, selected);
@@ -35,18 +36,19 @@ function rebuildCatalog() {
 	});
 }
 
-document.querySelector('#search').addEventListener('input', () => {
-	rebuildCatalog();
-});
+search.addEventListener('input', rebuildCatalog);
 
 let side;
 document.addEventListener('keydown', e => {
-	if (e.target.nodeName == 'INPUT') return;
-	if ('Escape' == e.key) repeat = 0;
+	if (e.target.nodeName == 'INPUT') {
+		if (e.key == 'Enter') document.activeElement.blur();
+		return;
+	}
+	if (e.key == 'Enter') search.focus();
+	if (pieceInterceptKey(e.key, selected)) return;
 	if (['Delete', 'Backspace'].includes(e.key)) {
 		removePiece(selected.cell);
 		createEditor(editor, selected);
-		repeat = 0;
 	}
 	if ('123456789'.includes(e.key)) side = e.key;
 	let param = editor.params[side - 1];

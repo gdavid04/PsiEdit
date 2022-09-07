@@ -12,3 +12,13 @@
 	top: 0; bottom: 0;
 	align-items: center;
 }
+
+.horizontal {
+	display: flex;
+	flex-direction: row;
+}
+
+.vertical {
+	display: flex;
+	flex-direction: column;
+}

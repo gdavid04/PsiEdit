@@ -19,6 +19,10 @@ body {
 	font: calc(8 * var(--pixel-size)) mc;
 }
 
+input {
+	font: calc(5 * var(--pixel-size)) mc;
+}
+
 [data-value] { font: calc(8 * var(--pixel-size) * var(--scale-value)) mc; }
 
 [data-color=red] { --color-param: #D22A2A; }

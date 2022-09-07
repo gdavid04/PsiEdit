@@ -44,7 +44,10 @@ document.addEventListener('keydown', e => {
 		if (e.key == 'Enter') document.activeElement.blur();
 		return;
 	}
-	if (e.key == 'Enter') search.focus();
+	if (e.key == 'Enter') {
+		search.focus();
+		search.select();
+	}
 	if (pieceInterceptKey(e.key, selected)) return;
 	if (['Delete', 'Backspace'].includes(e.key)) {
 		removePiece(selected.cell);

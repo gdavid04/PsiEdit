@@ -2,15 +2,18 @@ body {
 	--catalog-width: 4; --catalog-height: 5;
 }
 
+.catalog-container {
+	background-color: var(--color-catalog-bg);
+}
+
 .catalog {
 	position: relative;
-	width: calc(var(--catalog-width) * var(--cell-size) + 4 * var(--pixel-size)); height: calc(var(--catalog-height) * var(--cell-size));
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-start;
-	align-content: flex-start;
+	min-width: calc(var(--catalog-width) * var(--cell-size) + 4 * var(--pixel-size));
+	height: calc(var(--catalog-height) * var(--cell-size));
+	display: grid;
+	grid-template-columns: repeat(4, var(--cell-size));
+	grid-auto-rows: var(--cell-size);
 	overflow-y: scroll;
-	background-color: var(--color-catalog-bg);
 }
 
 .catalog-item {
@@ -19,3 +22,9 @@ body {
 }
 
 .catalog-item:hover { --color-selection: var(--color-catalog-hover); }
+
+.catalog-search {
+	background: none;
+	color: var(--color-fg);
+	border: none;
+}

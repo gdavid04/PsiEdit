@@ -44,6 +44,8 @@ export function createEditor(editor, selected) {
 	removeEditor(editor);
 	if (!selected.cell || !selected.cell.piece) return;
 	let piece = selected.cell.piece;
+	editor.element.style.setProperty('--piece-name', '"' + piece.dataset.name + '"');
+	editor.element.style.setProperty('--piece-desc', '"' + piece.dataset.desc + '"');
 	piece.querySelectorAll('.param').forEach(param => {
 		let elem = paramControl.cloneNode(true);
 		elem.style.setProperty('--param-name', '"' + param.dataset.name + '"');
@@ -60,6 +62,8 @@ export function createEditor(editor, selected) {
 }
 
 export function removeEditor(editor) {
+	editor.element.style.removeProperty('--piece-name');
+	editor.element.style.removeProperty('--piece-desc');
 	editor.controls.forEach(e => e.remove());
 	editor.controls = [];
 	editor.params = [];
@@ -90,6 +94,7 @@ export async function loadPieces(html) {
 		e.dataset.desc = e.dataset.desc || lang[`${namespace}.spellpiece.${e.dataset.type}.desc`] || `${namespace}.spellpiece.${e.dataset.type}.desc`;
 		e.dataset.key = e.dataset.key || `${namespace}:${e.dataset.type}`;
 		e.dataset.sortingName = e.dataset.sortingName || e.dataset.name;
+		e.dataset.tooltip = e.dataset.name + '\n' + e.dataset.desc;
 		pieces[e.dataset.type] = e;
 	});
 	return pieces;

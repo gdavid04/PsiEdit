@@ -40,3 +40,25 @@ body * .center, body * .vcenter {
 	display: flex;
 	flex-direction: column;
 }
+
+[data-tooltip]::after {
+	transition: opacity linear 0.2s;
+	opacity: 0;
+	position: fixed;
+	display: block;
+	white-space: pre-wrap;
+	top: var(--pixel-size);
+	left: var(--pixel-size);
+	border: 2px solid var(--color-tooltip-edge);
+	background-color: var(--color-tooltip-bg);
+	padding: 0 5px;
+	content: attr(data-tooltip);
+	pointer-events: none;
+	z-index: 1000;
+}
+
+[data-tooltip]:hover::after {
+	transition: none;
+	opacity: 1;
+	z-index: 1001;
+}

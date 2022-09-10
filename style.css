@@ -21,3 +21,31 @@ body {
 	image-rendering: pixelated;
 	image-rendering: -webkit-optimize-contrast;
 }
+
+.button {
+	width: calc(14 * var(--pixel-size));
+	height: calc(14 * var(--pixel-size));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: var(--edge-size);
+	border: var(--edge-size) solid;
+	background-color: var(--color-cell-bg);
+	border-top-color: var(--color-cell-edge-bright); border-left-color: var(--color-cell-edge-bright);
+	border-bottom-color: var(--color-cell-edge-dark); border-right-color: var(--color-cell-edge-dark);
+}
+
+.button:hover {
+	filter: brightness(1.5);
+}
+
+.button:active:not([disabled]) {
+	filter: none;
+	background-color: var(--color-cell-bg);
+	border-top-color: var(--color-cell-edge-dark); border-left-color: var(--color-cell-edge-dark);
+	border-bottom-color: var(--color-cell-edge-bright); border-right-color: var(--color-cell-edge-bright);
+}
+
+.button[disabled] {
+	filter: brightness(0.75);
+}

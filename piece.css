@@ -18,9 +18,18 @@ body {
 	width: calc(65 * var(--pixel-size)); height: calc(4 * 3 * var(--param-size));
 }
 
+.piece-config [data-piece-name] {
+	content: var(--piece-name);
+}
+
+.piece-config [data-piece-desc] {
+	content: var(--piece-desc);
+}
+
 .param-control {
 	position: relative;
 	width: 100%; height: calc(3 * var(--param-size));
+	margin: var(--pixel-size) 0;
 	color: var(--color-param);
 }
 

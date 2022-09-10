@@ -6,6 +6,8 @@ const size = 9;
 const width = size, height = size;
 const grid = document.querySelector('#spell-grid');
 const search = document.querySelector('#search');
+const exportButton = document.querySelector('#export');
+const deleteButton = document.querySelector('#delete');
 let selected = {};
 let editor = { element: document.querySelector('#piece-config'), controls: [], params: [] };
 let cells = createGrid(grid, width, height, editor, selected);
@@ -36,7 +38,18 @@ function rebuildCatalog() {
 	});
 }
 
+function exportSpell() {
+	alert(JSON.stringify(exportGrid(cells)));
+}
+
+function deletePiece() {
+	removePiece(selected.cell);
+	createEditor(editor, selected);
+}
+
 search.addEventListener('input', rebuildCatalog);
+exportButton.addEventListener('click', exportSpell);
+deleteButton.addEventListener('click', deletePiece);
 
 let side;
 document.addEventListener('keydown', e => {
@@ -49,10 +62,7 @@ document.addEventListener('keydown', e => {
 		search.select();
 	}
 	if (pieceInterceptKey(e.key, selected)) return;
-	if (['Delete', 'Backspace'].includes(e.key)) {
-		removePiece(selected.cell);
-		createEditor(editor, selected);
-	}
+	if (['Delete', 'Backspace'].includes(e.key)) deletePiece();
 	if ('123456789'.includes(e.key)) side = e.key;
 	let param = editor.params[side - 1];
 	if (param) {
@@ -73,9 +83,10 @@ document.addEventListener('keydown', e => {
 		setPiece(cells[x][y], connector);
 	}
 	selectCell(cells, selected, bound(x, width), bound(y, height), editor);
-	if (e.key == 'e') alert(JSON.stringify(exportGrid(cells)));
+	if (e.key == 'e') exportSpell();
 });
 document.addEventListener('keyup', e => {
 	if ('123456789'.includes(e.key)) side = null;
 });
+
 document.addEventListener('contextmenu', e => e.preventDefault());

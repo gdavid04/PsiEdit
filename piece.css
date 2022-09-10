@@ -15,14 +15,15 @@ body {
 }
 
 .piece-config {
-	width: calc(65 * var(--pixel-size)); height: calc(4 * 3 * var(--param-size));
+	width: calc(65 * var(--pixel-size)); height: calc(32 * var(--pixel-size) + 4 * (3 * var(--param-size) + var(--pixel-size)));
 }
 
-.piece-config [data-piece-name] {
+.piece-config [data-piece-name]::before {
+	color: #2AD0D2;
 	content: var(--piece-name);
 }
 
-.piece-config [data-piece-desc] {
+.piece-config [data-piece-desc]::before {
 	content: var(--piece-desc);
 }
 

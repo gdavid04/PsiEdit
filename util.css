@@ -54,11 +54,11 @@ body * .center, body * .vcenter {
 	padding: 0 5px;
 	content: attr(data-tooltip);
 	pointer-events: none;
-	z-index: 1000;
+	z-index: 3000;
 }
 
 [data-tooltip]:hover::after {
 	transition: none;
 	opacity: 1;
-	z-index: 1001;
+	z-index: 3001;
 }

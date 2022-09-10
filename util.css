@@ -4,13 +4,31 @@
 }
 
 .center, .hcenter {
-	left: 0; right: 0;
 	justify-content: center;
 }
 
+body * .center, body * .hcenter {
+	left: 0; right: 0;
+}
+
+@media (width >= 1212px) {
+	.center {
+		left: 0; right: 0;
+	}
+}
+
 .center, .vcenter {
-	top: 0; bottom: 0;
 	align-items: center;
+}
+
+body * .center, body * .vcenter {
+	top: 0; bottom: 0;
+}
+
+@media (height >= 648px) {
+	.center {
+		top: 0; bottom: 0;
+	}
 }
 
 .horizontal {

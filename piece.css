@@ -27,6 +27,22 @@ body {
 	content: var(--piece-desc);
 }
 
+.value-control {
+	position: relative;
+	width: 100%; height: 2em;
+	margin: var(--pixel-size) 0;
+	color: var(--color-param);
+}
+
+.value-control [data-name]::before {
+	content: var(--param-name);
+}
+
+.value-control input {
+	width: 5ch;
+	padding: 0 0.5ch;
+}
+
 .param-control {
 	position: relative;
 	width: 100%; height: calc(3 * var(--param-size));

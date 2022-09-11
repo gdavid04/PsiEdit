@@ -23,6 +23,9 @@ body {
 
 input {
 	font: calc(5 * var(--pixel-size)) mc;
+	background: var(--color-fg-shadow);
+	color: var(--color-fg);
+	border: 2px solid var(--color-fg);
 }
 
 [data-value] { font: calc(8 * var(--pixel-size) * var(--scale-value)) mc; }

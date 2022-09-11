@@ -35,9 +35,10 @@ export function getSortingName(piece) {
 	return piece.dataset.sortingName.toLowerCase();
 }
 
-let paramControl;
+let paramControl, valueControl;
 loadHTML('controls.html').then(r => {
 	paramControl = r.querySelector('.param-control');
+	valueControl = r.querySelector('.value-control');
 });
 
 export function createEditor(editor, selected) {
@@ -59,6 +60,21 @@ export function createEditor(editor, selected) {
 		editor.controls.push(elem);
 		editor.params.push(param);
 	});
+	if (piece.dataset.key == 'psi:constant_number') {
+		let elem = valueControl.cloneNode(true);
+		elem.style.setProperty('--param-name', '"' + 'Value' + '"');
+		elem.dataset.color = 'gray';
+		elem.querySelectorAll('[data-value]').forEach(value => {
+			value.value = piece.querySelector('[data-value]').textContent;
+			value.addEventListener('input', () => {
+				let pieceValue = piece.querySelector('[data-value]');
+				pieceValue.textContent = value.value = value.value.substring(0, 5);
+				pieceValue.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][value.value.length - 1]);
+			});
+		});
+		editor.element.append(elem);
+		editor.controls.push(elem);
+	}
 }
 
 export function removeEditor(editor) {
@@ -67,6 +83,7 @@ export function removeEditor(editor) {
 	editor.controls.forEach(e => e.remove());
 	editor.controls = [];
 	editor.params = [];
+	editor.values = [];
 }
 
 export async function loadPieces(html) {
@@ -124,7 +141,7 @@ export function oppositeSide(side) {
 	return { left: 'right', right: 'left', top: 'bottom', bottom: 'top', off: 'off' }[side];
 }
 
-export function pieceInterceptKey(ch, selected) {
+export function pieceInterceptKey(ch, selected, editor = null) {
 	if (!selected.cell || !selected.cell.piece) return false;
 	let piece = selected.cell.piece;
 	if (piece.dataset.key == 'psi:constant_number') {
@@ -158,6 +175,7 @@ export function pieceInterceptKey(ch, selected) {
 		if (isNaN(parseFloat(tmp))) return false;
 		value.textContent = tmp;
 		value.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][tmp.length - 1]);
+		if (editor) createEditor(editor, selected);
 		return true;
 	}
 	return false;

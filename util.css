@@ -31,6 +31,14 @@ body * .center, body * .vcenter {
 	}
 }
 
+.hjustify {
+	justify-content: space-between;
+}
+
+.vjustify {
+	align-content: space-between;
+}
+
 .horizontal {
 	display: flex;
 	flex-direction: row;

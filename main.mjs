@@ -61,7 +61,7 @@ document.addEventListener('keydown', e => {
 		search.focus();
 		search.select();
 	}
-	if (pieceInterceptKey(e.key, selected)) return;
+	if (pieceInterceptKey(e.key, selected, editor)) return;
 	if (['Delete', 'Backspace'].includes(e.key)) deletePiece();
 	if ('123456789'.includes(e.key)) side = e.key;
 	let param = editor.params[side - 1];

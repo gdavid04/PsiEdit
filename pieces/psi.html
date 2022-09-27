@@ -67,22 +67,22 @@
 <div class="piece" data-type="selector_caster_battery"></div>
 <div class="piece" data-type="selector_is_elytra_flying"></div>
 <div class="piece" data-type="selector_item_count"></div>
-<div class="piece" data-type="operator_sum">
+<div class="piece" data-type="operator_sum" data-related="Invert=operator_subtract Vector=operator_vector_sum">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
 </div>
-<div class="piece" data-type="operator_subtract">
+<div class="piece" data-type="operator_subtract" data-related="Invert=operator_sum Vector=operator_vector_subtract">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
 </div>
-<div class="piece" data-type="operator_multiply">
+<div class="piece" data-type="operator_multiply" data-related="Invert=operator_divide Vector=operator_vector_multiply,operator_vector_component_wise_multiply">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
 </div>
-<div class="piece" data-type="operator_divide">
+<div class="piece" data-type="operator_divide" data-related="Invert=operator_multiply Int=operator_integer_divide Mod=operator_modulus Vector=operator_vector_divide">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="yellow" data-optional></div>
@@ -93,11 +93,11 @@
 <div class="piece" data-type="operator_inverse">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_modulus">
+<div class="piece" data-type="operator_modulus" data-related="Divide=operator_divide,operator_integer_divide">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 </div>
-<div class="piece" data-type="operator_integer_divide">
+<div class="piece" data-type="operator_integer_divide" data-related="Invert=operator_multiply Num=operator_divide Mod=operator_modulus">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="yellow" data-optional></div>
@@ -106,39 +106,39 @@
 	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
 	<div class="param" data-name="Min" data-key="_min" data-color="blue" data-optional></div>
 </div>
-<div class="piece" data-type="operator_sin">
+<div class="piece" data-type="operator_sin" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_cos">
+<div class="piece" data-type="operator_cos" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_asin">
+<div class="piece" data-type="operator_asin" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_acos">
+<div class="piece" data-type="operator_acos" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_max">
+<div class="piece" data-type="operator_max" data-related="Min=operator_min">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
 </div>
-<div class="piece" data-type="operator_min">
+<div class="piece" data-type="operator_min" data-related="Max=operator_max">
 	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
 	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
 	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
 </div>
-<div class="piece" data-type="operator_square">
+<div class="piece" data-type="operator_square" data-related="Power=operator_square,operator_cube,operator_power Invert=operator_square_root">
 	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
 </div>
-<div class="piece" data-type="operator_cube">
+<div class="piece" data-type="operator_cube" data-related="Power=operator_square,operator_cube,operator_power">
 	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
 </div>
-<div class="piece" data-type="operator_power">
+<div class="piece" data-type="operator_power" data-related="Power=operator_square,operator_cube,operator_power Invert=operator_root">
 	<div class="param" data-name="Base" data-key="_base" data-color="green"></div>
 	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
 </div>
-<div class="piece" data-type="operator_square_root">
+<div class="piece" data-type="operator_square_root" data-related="Root=operator_square_root,operator_root Invert=operator_square">
 	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
 </div>
 <div class="piece" data-type="operator_log">
@@ -215,13 +215,13 @@
 	<div class="param" data-name="Y" data-key="_y" data-color="green" data-optional></div>
 	<div class="param" data-name="Z" data-key="_z" data-color="blue" data-optional></div>
 </div>
-<div class="piece" data-type="operator_vector_extract_x">
+<div class="piece" data-type="operator_vector_extract_x" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_vector_extract_y">
+<div class="piece" data-type="operator_vector_extract_y" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_vector_extract_z">
+<div class="piece" data-type="operator_vector_extract_z" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
 <div class="piece" data-type="operator_vector_project">
@@ -261,15 +261,15 @@
 <div class="piece" data-type="operator_list_size">
 	<div class="param" data-name="List" data-key="_list" data-color="red"></div>
 </div>
-<div class="piece" data-type="operator_list_union">
+<div class="piece" data-type="operator_list_union" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
 	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
 	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
 </div>
-<div class="piece" data-type="operator_list_intersection">
+<div class="piece" data-type="operator_list_intersection" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
 	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
 	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
 </div>
-<div class="piece" data-type="operator_list_exclusion">
+<div class="piece" data-type="operator_list_exclusion" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
 	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
 	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
 </div>
@@ -277,14 +277,14 @@
 	<div class="param" data-name="List" data-key="_list" data-color="cyan"></div>
 	<div class="param" data-name="Number" data-key="_number" data-color="purple"></div>
 </div>
-<div class="piece" data-type="operator_root">
+<div class="piece" data-type="operator_root" data-related="Root=operator_square_root,operator_root Invert=operator_power">
 	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
 	<div class="param" data-name="Root" data-key="_root" data-color="red"></div>
 </div>
-<div class="piece" data-type="operator_extract_sign">
+<div class="piece" data-type="operator_extract_sign" data-related="Vector=operator_vector_extract_sign">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
-<div class="piece" data-type="operator_vector_extract_sign">
+<div class="piece" data-type="operator_vector_extract_sign" data-related="Scalar=operator_extract_sign">
 	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
 </div>
 <div class="piece" data-type="operator_closest_to_line">

@@ -14,7 +14,7 @@ let cells = createGrid(grid, width, height, editor, selected);
 selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
-let pieces = {};
+export let pieces = {};
 loadPieceDesc('pieces/psi.html');
 loadPieceDesc('pieces/phi.html');
 

@@ -25,6 +25,7 @@ async function loadPieceDesc(url) {
 	}));
 }
 
+// TODO: this is horribly slow on mobile
 function rebuildCatalog() {
 	pieceList.innerHTML = '';
 	Object.values(pieces).sort((a, b) => getSortingName(a) > getSortingName(b)).forEach(piece => {

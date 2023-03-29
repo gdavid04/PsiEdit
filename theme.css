@@ -18,6 +18,9 @@ body {
 	--color-param-other: rgb(200, 200, 200);
 	--color-tooltip-bg: rgba(0, 0, 0, calc(200 / 255));
 	--color-tooltip-edge: rgba(153, 153, 255, calc(85 / 255));
+}
+
+body, button {
 	font: calc(8 * var(--pixel-size)) mc;
 }
 

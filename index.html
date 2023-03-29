@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 	</head>
 	<body>
-		<div class="center">
+		<main class="center">
 			<div class="piece-config" id="piece-config">
 				<div data-piece-name></div>
 				<div data-piece-desc></div>
@@ -18,17 +18,17 @@
 			<div class="vertical catalog-container">
 				<div class="horizontal">
 					<i class="fa-solid fa-magnifying-glass"></i>
-					<input type="text" class="catalog-search" id="search">
+					<input type="search" class="catalog-search" id="search">
 				</div>
 				<div class="catalog" id="piece-catalog"></div>
 				<div class="horizontal">
-					<div class="button" id="import" data-tooltip="Import spell
-Coming soon" disabled ontouchstart=""><i class="fa-solid fa-file-import"></i></div>
-					<div class="button" id="export" data-tooltip="Export spell"><i class="fa-solid fa-file-export"></i></div>
-					<div class="button" id="delete" data-tooltip="Delete piece"><i class="fa-solid fa-trash"></i></div>
+					<button id="import" data-tooltip="Import spell
+Coming soon" class="disabled" aria-disabled><i class="fa-solid fa-file-import"></i></button>
+					<button id="export" data-tooltip="Export spell"><i class="fa-solid fa-file-export"></i></button>
+					<button id="delete" data-tooltip="Delete piece"><i class="fa-solid fa-trash"></i></button>
 				</div>
 			</div>
-		</div>
+		</main>
 		<script type="module" src="main.mjs"></script>
 	</body>
 </html>

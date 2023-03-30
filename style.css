@@ -11,7 +11,7 @@ body {
 	--color-selection: transparent;
 	background-color: var(--color-bg);
 	user-select: none;
-	overscroll-behavior-y: contain;
+	overscroll-behavior: none;
 }
 
 * {

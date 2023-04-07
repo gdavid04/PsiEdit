@@ -1,4 +1,4 @@
-import { createGrid, selectCell, exportGrid } from './grid.mjs';
+import { createGrid, selectCell, exportGrid, importGrid } from './grid.mjs';
 import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
@@ -7,6 +7,7 @@ const width = size, height = size;
 const grid = document.querySelector('#spell-grid');
 const search = document.querySelector('#search');
 const exportButton = document.querySelector('#export');
+const importButton = document.querySelector('#import');
 const deleteButton = document.querySelector('#delete');
 let selected = {};
 let editor = { element: document.querySelector('#piece-config'), controls: [], params: [] };
@@ -14,7 +15,7 @@ let cells = createGrid(grid, width, height, editor, selected);
 selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
-let pieces = {};
+export let pieces = {};
 loadPieceDesc('pieces/psi.html');
 loadPieceDesc('pieces/phi.html');
 
@@ -39,7 +40,12 @@ function rebuildCatalog() {
 }
 
 function exportSpell() {
-	alert(JSON.stringify(exportGrid(cells)));
+	alert(JSON.stringify(exportGrid(cells))); // TODO proper dialog
+}
+
+function importSpell() {
+	importGrid(JSON.parse(prompt("Spell JSON")), cells); // TODO proper dialog
+	createEditor(editor, selected);
 }
 
 function deletePiece() {
@@ -49,6 +55,7 @@ function deletePiece() {
 
 search.addEventListener('input', rebuildCatalog);
 exportButton.addEventListener('click', exportSpell);
+importButton.addEventListener('click', importSpell);
 deleteButton.addEventListener('click', deletePiece);
 
 let side;
@@ -78,12 +85,13 @@ document.addEventListener('keydown', e => {
 	if (e.key == 'ArrowUp') { y--; direction = 'top'; }
 	if (e.key == 'ArrowDown') { y++; direction = 'bottom'; }
 	if (e.shiftKey && inBound(x, width) && inBound(y, height) && direction != 'off' && !cells[x][y].piece) {
-		let connector = createPiece(pieces.connector);
+		let connector = createPiece(pieces['psi:connector']);
 		setParamSide(connector.querySelector('.param[data-key=_target]'), oppositeSide(direction));
 		setPiece(cells[x][y], connector);
 	}
 	selectCell(cells, selected, bound(x, width), bound(y, height), editor);
 	if (e.key == 'e') exportSpell();
+	if (e.key == 'i') importSpell();
 });
 document.addEventListener('keyup', e => {
 	if ('123456789'.includes(e.key)) side = null;

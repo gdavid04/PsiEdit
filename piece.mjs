@@ -1,3 +1,4 @@
+import { pieces } from './main.mjs';
 import { loadHTML, loadJSON } from './util.mjs';
 
 export function setPiece(cell, piece) {
@@ -112,7 +113,7 @@ export async function loadPieces(html) {
 		e.dataset.key = e.dataset.key || `${namespace}:${e.dataset.type}`;
 		e.dataset.sortingName = e.dataset.sortingName || e.dataset.name;
 		e.dataset.tooltip = e.dataset.name + '\n' + e.dataset.desc;
-		pieces[e.dataset.type] = e;
+		pieces[e.dataset.key] = e;
 	});
 	return pieces;
 }
@@ -133,8 +134,27 @@ export function exportPiece(piece) {
 	return res;
 }
 
+export function importPiece(data) {
+	let piece = createPiece(pieces[data.key]);
+	if (data.params) {
+		for (let [param, side] of Object.entries(data.params)) {
+			setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
+		}
+	}
+	if (data.constantValue) {
+		let value = piece.querySelector('[data-value]');
+		value.textContent = data.constantValue;
+		value.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][data.constantValue.length - 1]);
+	}
+	return piece;
+}
+
 function sideToInt(side) {
 	return { off: 0, top: 1, bottom: 2, left: 3, right: 4 }[side || 'off'];
+}
+
+function intToSide(side) {
+	return [ 'off', 'top', 'bottom', 'left', 'right' ][side];
 }
 
 export function oppositeSide(side) {

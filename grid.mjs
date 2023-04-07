@@ -1,4 +1,5 @@
-import { removePiece, createEditor, exportPiece } from './piece.mjs';
+import { setPiece } from './piece.mjs';
+import { removePiece, createEditor, exportPiece, importPiece } from './piece.mjs';
 import './util.mjs';
 
 export function createGrid(grid, width, height, editor = null, selected = null) {
@@ -59,4 +60,16 @@ export function exportGrid(cells) {
 		spellName: 'PsiEdit', // TODO custom name
 		spellList: res
 	};
+}
+
+export function importGrid(from, cells) {
+	for (let x = 0; x < cells.width; x++) {
+		for (let y = 0; y < cells.height; y++) {
+			removePiece(cells[x][y]);
+		}
+	}
+	// TODO validation and error messages
+	for (let pieceData of from.spellList) {
+		setPiece(cells[pieceData.x][pieceData.y], importPiece(pieceData.data));
+	}
 }

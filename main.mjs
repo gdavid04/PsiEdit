@@ -29,13 +29,20 @@ async function loadPieceDesc(url) {
 function rebuildCatalog() {
 	pieceList.innerHTML = '';
 	Object.values(pieces).sort((a, b) => getSortingName(a) > getSortingName(b)).forEach(piece => {
-		if (!piece.dataset.name.toLowerCase().includes(document.querySelector('#search').value.toLowerCase())) return;
 		let item = pieceList.div('catalog-item');
 		item.append(piece.cloneNode(true));
 		item.addEventListener('click', () => {
 			setPiece(selected.cell, createPiece(piece));
 			createEditor(editor, selected);
 		});
+	});
+}
+
+function filterCatalog() {
+	let query = search.value.toLowerCase();
+	pieceList.childNodes.forEach(item => {
+		let piece = item.querySelector('.piece');
+		item.hidden = !piece.dataset.name.toLowerCase().includes(query);
 	});
 }
 
@@ -53,7 +60,7 @@ function deletePiece() {
 	createEditor(editor, selected);
 }
 
-search.addEventListener('input', rebuildCatalog);
+search.addEventListener('input', filterCatalog);
 exportButton.addEventListener('click', exportSpell);
 importButton.addEventListener('click', importSpell);
 deleteButton.addEventListener('click', deletePiece);

@@ -36,9 +36,10 @@ export function getSortingName(piece) {
 	return piece.dataset.sortingName.toLowerCase();
 }
 
-let paramControl, valueControl;
+let paramControl, valueControl, relatedControl;
 loadHTML('controls.html').then(r => {
 	paramControl = r.querySelector('.param-control');
+	relatedControl = r.querySelector('.related-control');
 	valueControl = r.querySelector('.value-control');
 });
 
@@ -75,6 +76,26 @@ export function createEditor(editor, selected) {
 		});
 		editor.element.append(elem);
 		editor.controls.push(elem);
+	}
+	if (piece.dataset.related) {
+		for (let group of piece.dataset.related.split(' ')) {
+			let elem = relatedControl.cloneNode(true);
+			elem.style.setProperty('--param-name', '"' + group.substring(0, group.indexOf('=')) + '"');
+			elem.dataset.color = 'gray';
+			let pieceList = elem.querySelector('[data-pieces]');
+			for (let pc of group.substring(group.indexOf('=') + 1).split(',')) {
+				let item = pieceList.div('catalog-item');
+				let pcn = pc.includes(':') ? pc : piece.dataset.key.substring(0, piece.dataset.key.indexOf(':')) + ':' + pc;
+				item.append(pieces[pcn].cloneNode(true));
+				item.addEventListener('click', () => {
+					setPiece(selected.cell, createPiece(pieces[pc]));
+					// TODO copy shared piece data
+					createEditor(editor, selected);
+				});
+			}
+			editor.element.append(elem);
+			editor.controls.push(elem);
+		}
 	}
 }
 

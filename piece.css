@@ -15,7 +15,11 @@ body {
 }
 
 .piece-config {
-	width: calc(65 * var(--pixel-size)); height: calc(32 * var(--pixel-size) + 4 * (3 * var(--param-size) + var(--pixel-size)));
+	width: calc(65 * var(--pixel-size));
+	min-height: calc(32 * var(--pixel-size) + 4 * (3 * var(--param-size) + var(--pixel-size)));
+	max-height: calc(var(--cell-size) * var(--grid-height));
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .piece-config [data-piece-name]::before {
@@ -41,6 +45,28 @@ body {
 .value-control input {
 	width: 5ch;
 	padding: 0 0.5ch;
+}
+
+.related-control {
+	position: relative;
+	width: 100%;
+	min-height: calc(var(--piece-size));
+	margin: var(--pixel-size) 0;
+	color: var(--color-param);
+}
+
+.related-control [data-pieces] {
+	display: grid;
+	grid-template-columns: repeat(2, var(--cell-size));
+	grid-auto-rows: var(--cell-size);
+}
+
+.related-control > [data-name] {
+	max-width: calc(100% - 2 * var(--cell-size));
+}
+
+.related-control > [data-name]::before {
+	content: var(--param-name);
 }
 
 .param-control {

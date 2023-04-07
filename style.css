@@ -10,21 +10,26 @@ body {
 	--edge-size: var(--pixel-size);
 	--color-selection: transparent;
 	background-color: var(--color-bg);
-	color: var(--color-text);
-	text-shadow: var(--pixel-size) var(--pixel-size) var(--color-text-shadow);
 	user-select: none;
+	overscroll-behavior: none;
 }
 
 * {
 	background-size: 100% 100%;
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
-	image-rendering: -webkit-optimize-contrast;
 }
 
-.button {
+body, button {
+	color: var(--color-text);
+	text-shadow: var(--pixel-size) var(--pixel-size) var(--color-text-shadow);
+}
+
+button {
+	box-sizing: content-box;
 	width: calc(14 * var(--pixel-size));
 	height: calc(14 * var(--pixel-size));
+	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,17 +40,21 @@ body {
 	border-bottom-color: var(--color-cell-edge-dark); border-right-color: var(--color-cell-edge-dark);
 }
 
-.button:hover {
+button:hover {
 	filter: brightness(1.5);
 }
 
-.button:active:not([disabled]) {
+button:active:not(.disabled) {
 	filter: none;
 	background-color: var(--color-cell-bg);
 	border-top-color: var(--color-cell-edge-dark); border-left-color: var(--color-cell-edge-dark);
 	border-bottom-color: var(--color-cell-edge-bright); border-right-color: var(--color-cell-edge-bright);
 }
 
-.button[disabled] {
+button.disabled {
 	filter: brightness(0.75);
+}
+
+input[type=search]::-webkit-search-decoration {
+	display: none;
 }

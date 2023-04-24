@@ -1,5 +1,6 @@
 import { createGrid, selectCell, exportGrid, importGrid } from './grid.mjs';
 import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
+import { snbt2json } from './snbt.mjs';
 import { parseURLArgs, updateURLArgs } from './urlargs.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
@@ -57,7 +58,7 @@ function exportSpell() {
 }
 
 function importSpell() {
-	importGrid(JSON.parse(prompt("Spell JSON")), cells); // TODO proper dialog
+	importGrid(snbt2json(prompt("Spell JSON")), cells); // TODO proper dialog
 	createEditor(editor, selected);
 }
 

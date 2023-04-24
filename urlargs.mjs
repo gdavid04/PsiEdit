@@ -11,7 +11,7 @@ export function parseURLArgs() {
 		selectCell(cells, selected, bound(x, width), bound(y, height));
 	}
 	if (args.has('spell')) {
-		importGrid(JSON.parse(atob(args.get('spell'))), cells);
+		importGrid(JSON.parse(decodeURIComponent(atob(args.get('spell')))), cells);
 		createEditor(editor, selected);
 	}
 }
@@ -20,7 +20,7 @@ export function updateURLArgs() {
 	if (cells.some(col => col.some(cell => cell.piece))) {
 		let args = new URLSearchParams();
 		args.set('cursor', `${selected.x + 1}-${selected.y + 1}`);
-		args.set('spell', btoa(JSON.stringify(exportGrid(cells))));
+		args.set('spell', btoa(encodeURIComponent(JSON.stringify(exportGrid(cells)))));
 		history.replaceState({}, '', `${location.pathname}?${args}`);
 	} else {
 		history.replaceState({}, '', location.pathname);

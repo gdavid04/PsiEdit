@@ -1,6 +1,9 @@
 import { pieces } from './main.mjs';
 import { loadHTML, loadJSON } from './util.mjs';
 
+// used by PsiEdit format to compress parameter names
+const builtinArgs = [ 'target', 'number', 'number1', 'number2', 'number3', 'number4', 'vector1', 'vector2', 'vector3', 'vector4', 'position', 'min', 'max', 'power','x', 'y', 'z', 'radius', 'distance', 'time', 'base','ray', 'vector', 'axis', 'angle', 'pitch', 'instrument', 'volume', 'list1', 'list2', 'list', 'direction', 'from1', 'from2', 'to1', 'to2', 'root', 'toggle', 'mask', 'channel', 'slot', 'ray_end', 'ray_start' ];
+
 export function setPiece(cell, piece) {
 	removePiece(cell);
 	cell.element.append(piece);
@@ -152,7 +155,48 @@ export async function loadPieces(html) {
 	return pieces;
 }
 
-export function exportPiece(piece) {
+export function exportPiece(piece, compact = false) {
+	if (compact) {
+		let res = [];
+		let keyBuf = new TextEncoder().encode(piece.dataset.key);
+		if (keyBuf.length > 0xFF) throw new Error('Key too long');
+		res.push(new Uint8Array([ keyBuf.length & 0xFF ]));
+		res.push(keyBuf);
+		let commentBuf = new TextEncoder().encode(piece.dataset.comment || '');
+		if (commentBuf.length > 0xFFFF) throw new Error('Comment too long');
+		res.push(new Uint8Array([ commentBuf.length & 0xFF, (commentBuf.length >> 8) & 0xFF ]));
+		res.push(commentBuf);
+		let params = {};
+		piece.querySelectorAll('.param').forEach(param => {
+			if (param.dataset.side != 'off') params[param.dataset.key] = sideToInt(param.dataset.side);
+		});
+		if (Object.keys(params).length > 0xFF) throw new Error('Too many params');
+		res.push(new Uint8Array([ Object.keys(params).length & 0xFF ]));
+		for (let key in params) {
+			if (key.startsWith('_') && builtinArgs.includes(key.substring(1))) {
+				res.push(new Uint8Array([ 0xFF, builtinArgs.indexOf(key.substring(1)) ]));
+			} else {
+				let keyBuf = new TextEncoder().encode(key);
+				if (key.length > 0xFE) throw new Error('Param key too long');
+				res.push(new Uint8Array([ keyBuf.length & 0xFF ]));
+				res.push(keyBuf);
+			}
+			res.push(new Uint8Array([ params[key] & 0xFF ]));
+		}
+		if (piece.dataset.key == 'psi:constant_number') {
+			let value = piece.querySelector('[data-value]').textContent;
+			let valueBuf = new TextEncoder().encode(value);
+			res.push(new Uint8Array([ valueBuf.length & 0xFF ]));
+			res.push(valueBuf);
+		}
+		let raw = new Uint8Array(res.map(e => e.length).reduce((a, b) => a + b));
+		let offset = 0;
+		for (let elem of res) {
+			raw.set(elem, offset);
+			offset += elem.length;
+		}
+		return raw;
+	}
 	let params = {};
 	let hasParams = false;
 	piece.querySelectorAll('.param').forEach(param => {
@@ -169,6 +213,38 @@ export function exportPiece(piece) {
 }
 
 export function importPiece(data) {
+	if (data instanceof Uint8Array) {
+		let offset = 0;
+		let keyLength = data[offset++];
+		let key = new TextDecoder().decode(data.slice(offset, offset + keyLength));
+		let piece = createPiece(pieces[key]);
+		offset += keyLength;
+		let commentLength = data[offset++] | (data[offset++] << 8);
+		piece.dataset.comment = new TextDecoder().decode(data.slice(offset, offset + commentLength));
+		offset += commentLength;
+		let paramCount = data[offset++];
+		for (let i = 0; i < paramCount; i++) {
+			let paramKeyLength = data[offset++];
+			let paramKey;
+			if (paramKeyLength == 0xFF) {
+				paramKey = '_' + builtinArgs[data[offset++]]; 
+			} else {
+				paramKey = new TextDecoder().decode(data.slice(offset, offset + paramKeyLength));
+				offset += paramKeyLength;
+			}
+			let paramSide = data[offset++];
+			setParamSide(piece.querySelector(`.param[data-key="${paramKey}"]`), intToSide(paramSide));
+		}
+		if (key == 'psi:constant_number') {
+			let valueLength = data[offset++];
+			let value = new TextDecoder().decode(data.slice(offset, offset + valueLength));
+			offset += valueLength;
+			let valueElem = piece.querySelector('[data-value]');
+			valueElem.textContent = value;
+			valueElem.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][value.length - 1]);
+		}
+		return piece;
+	}
 	let piece = createPiece(pieces[data.key]);
 	if (data.params) {
 		for (let [param, side] of Object.entries(data.params)) {

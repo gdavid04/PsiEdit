@@ -41,20 +41,42 @@ export function selectCell(cells, selected, x, y, editor = null) {
 	if (editor) createEditor(editor, selected);
 }
 
-export function exportGrid(cells) {
+export function exportGrid(cells, compact = false) {
+	// compact is used for URL export to save space
 	let res = [];
-	for (let x = 0; x < cells.width; x++) {
+	let masks = new Uint8Array(Math.ceil(cells.width * cells.height / 8));
+	let mask = 0;
+	let i = 0;
+	for (let x = 0; x < cells.width; x++) {
 		for (let y = 0; y < cells.height; y++) {
+			mask = (mask << 1) & 0xFF;
 			if (cells[x][y].piece) {
-				res.push({
-					x: x,
-					y: y,
-					data: exportPiece(cells[x][y].piece)
-				});
+				mask |= 1;
+				let pieceData = exportPiece(cells[x][y].piece, compact);
+				if (compact) {
+					if (pieceData.length > 0xFFFF) throw new Error('Piece data too large');
+					res.push(new Uint8Array([
+						(pieceData.length >> 0) & 0xFF,
+						(pieceData.length >> 8) & 0xFF
+					]));
+					res.push(pieceData);
+				}
+				else res.push({ x: x, y: y, data: pieceData });
 			}
+			if (++i % 8 == 0) masks.set([mask], i / 8 - 1);
 		}
 	}
-	return {
+	if (i % 8 != 0) masks.set([mask], i / 8);
+	if (compact) {
+		let raw = new Uint8Array(masks.length + res.map(e => e.length).reduce((a, b) => a + b));
+		raw.set(masks, 0);
+		let offset = masks.length;
+		for (let pieceData of res) {
+			raw.set(pieceData, offset);
+			offset += pieceData.length;
+		}
+		return raw;
+	} else return {
 		modsRequired: [], // TODO required mods list, for now this is here to remove the compatibility warning on import
 		validSpell: true,
 		spellName: 'PsiEdit', // TODO custom name
@@ -63,13 +85,32 @@ export function exportGrid(cells) {
 }
 
 export function importGrid(from, cells) {
-	for (let x = 0; x < cells.width; x++) {
+	for (let x = 0; x < cells.width; x++) {
 		for (let y = 0; y < cells.height; y++) {
 			removePiece(cells[x][y]);
 		}
 	}
-	// TODO validation and error messages
-	for (let pieceData of from.spellList) {
-		setPiece(cells[pieceData.x][pieceData.y], importPiece(pieceData.data));
+	if (from instanceof Uint8Array) {
+		let masks = from.subarray(0, Math.ceil(cells.width * cells.height / 8));
+		let i = 0;
+		let offset = masks.length;
+		for (let x = 0; x < cells.width; x++) {
+			for (let y = 0; y < cells.height; y++) {
+				if ((masks[Math.floor(i / 8)] >> (7 - i % 8)) & 1) {
+					let length
+						= (from[offset + 0] << 0)
+						| (from[offset + 1] << 8);
+					let piece = importPiece(from.subarray(offset + 2, offset + length + 2));
+					setPiece(cells[x][y], piece);
+					offset += length + 2;
+				}
+				i++;
+			}
+		}
+	} else {
+		// TODO validation and error messages
+		for (let pieceData of from.spellList) {
+			setPiece(cells[pieceData.x][pieceData.y], importPiece(pieceData.data));
+		}
 	}
 }

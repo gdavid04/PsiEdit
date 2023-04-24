@@ -9,6 +9,7 @@ body {
 	--pixel-size: calc(1px * var(--scale));
 	--edge-size: var(--pixel-size);
 	--color-selection: transparent;
+	--scale-value: 1;
 	background-color: var(--color-bg);
 	user-select: none;
 	overscroll-behavior: none;

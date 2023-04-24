@@ -1,29 +1,34 @@
 import { createGrid, selectCell, exportGrid, importGrid } from './grid.mjs';
 import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
+import { parseURLArgs, updateURLArgs } from './urlargs.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
 const size = 9;
-const width = size, height = size;
+export const width = size, height = size;
 const grid = document.querySelector('#spell-grid');
 const search = document.querySelector('#search');
 const exportButton = document.querySelector('#export');
 const importButton = document.querySelector('#import');
 const deleteButton = document.querySelector('#delete');
-let selected = {};
-let editor = { element: document.querySelector('#piece-config'), controls: [], params: [] };
-let cells = createGrid(grid, width, height, editor, selected);
+export let selected = {};
+export let editor = { element: document.querySelector('#piece-config'), controls: [], params: [], comment: null };
+export let cells = createGrid(grid, width, height, editor, selected);
 selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
 export let pieces = {};
-loadPieceDesc('pieces/psi.html');
-loadPieceDesc('pieces/phi.html');
+await Promise.allSettled([
+	'pieces/psi.html',
+	'pieces/phi.html'
+].map(loadPieceDesc));
+
+parseURLArgs();
 
 async function loadPieceDesc(url) {
-	loadHTML(url).then(r => loadPieces(r).then(pcs => {
-		Object.assign(pieces, pcs);
-		rebuildCatalog();
-	}));
+	let desc = await loadHTML(url);
+	let loaded = await loadPieces(desc);
+	Object.assign(pieces, loaded);
+	rebuildCatalog();
 }
 
 function rebuildCatalog() {
@@ -48,6 +53,7 @@ function filterCatalog() {
 
 function exportSpell() {
 	alert(JSON.stringify(exportGrid(cells))); // TODO proper dialog
+	updateURLArgs();
 }
 
 function importSpell() {
@@ -67,13 +73,24 @@ deleteButton.addEventListener('click', deletePiece);
 
 let side;
 document.addEventListener('keydown', e => {
-	if (e.target.nodeName == 'INPUT') {
-		if (e.key == 'Enter') document.activeElement.blur();
+	if (e.getModifierState('Control') && e.key == 'd') {
+		e.preventDefault();
+		if (editor.comment) {
+			if (e.target == editor.comment) document.activeElement.blur();
+			else editor.comment.focus();
+		}
+	}
+	if (['INPUT', 'TEXTAREA'].includes(e.target.nodeName)) {
+		if (e.key == { INPUT: 'Enter', TEXTAREA: 'Escape' }[e.target.nodeName]) {
+			e.preventDefault();
+			document.activeElement.blur();
+		}
 		return;
 	}
 	if (e.key == 'Enter') {
 		search.focus();
 		search.select();
+		return;
 	}
 	if (pieceInterceptKey(e.key, selected, editor)) return;
 	if (['Delete', 'Backspace'].includes(e.key)) deletePiece();

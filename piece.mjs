@@ -14,6 +14,7 @@ export function removePiece(cell) {
 }
 
 export function createPiece(template) {
+	// TODO: placeholder for unknown pieces
 	return template.cloneNode(true);
 }
 
@@ -36,11 +37,12 @@ export function getSortingName(piece) {
 	return piece.dataset.sortingName.toLowerCase();
 }
 
-let paramControl, valueControl, relatedControl;
+let paramControl, valueControl, textControl, relatedControl;
 loadHTML('controls.html').then(r => {
 	paramControl = r.querySelector('.param-control');
 	relatedControl = r.querySelector('.related-control');
 	valueControl = r.querySelector('.value-control');
+	textControl = r.querySelector('.text-control');
 });
 
 export function createEditor(editor, selected) {
@@ -66,16 +68,26 @@ export function createEditor(editor, selected) {
 		let elem = valueControl.cloneNode(true);
 		elem.style.setProperty('--param-name', '"' + 'Value' + '"');
 		elem.dataset.color = 'gray';
-		elem.querySelectorAll('[data-value]').forEach(value => {
-			value.value = piece.querySelector('[data-value]').textContent;
-			value.addEventListener('input', () => {
-				let pieceValue = piece.querySelector('[data-value]');
-				pieceValue.textContent = value.value = value.value.substring(0, 5);
-				pieceValue.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][value.value.length - 1]);
-			});
+		let value = elem.querySelector('[data-value]');
+		value.value = piece.querySelector('[data-value]').textContent;
+		value.addEventListener('input', () => {
+			let pieceValue = piece.querySelector('[data-value]');
+			pieceValue.textContent = value.value = value.value.substring(0, 5);
+			pieceValue.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][value.value.length - 1]);
 		});
 		editor.element.append(elem);
 		editor.controls.push(elem);
+	}
+	/* comment */ {
+		let elem = textControl.cloneNode(true);
+		elem.style.setProperty('--param-name', '"' + 'Comment' + '"');
+		elem.dataset.color = 'gray';
+		let value = elem.querySelector('[data-value]');
+		value.value = (piece.dataset.comment || '').replaceAll(';', '\n');
+		value.addEventListener('input', () => piece.dataset.comment = value.value.replaceAll('\n', ';'));
+		editor.element.append(elem);
+		editor.controls.push(elem);
+		editor.comment = value;
 	}
 	if (piece.dataset.related) {
 		for (let group of piece.dataset.related.split(' ')) {
@@ -88,7 +100,7 @@ export function createEditor(editor, selected) {
 				let pcn = pc.includes(':') ? pc : piece.dataset.key.substring(0, piece.dataset.key.indexOf(':')) + ':' + pc;
 				item.append(pieces[pcn].cloneNode(true));
 				item.addEventListener('click', () => {
-					setPiece(selected.cell, createPiece(pieces[pc]));
+					setPiece(selected.cell, createPiece(pieces[pcn]));
 					// TODO copy shared piece data
 					createEditor(editor, selected);
 				});
@@ -106,6 +118,7 @@ export function removeEditor(editor) {
 	editor.controls = [];
 	editor.params = [];
 	editor.values = [];
+	editor.comment = null;
 }
 
 export async function loadPieces(html) {
@@ -147,7 +160,7 @@ export function exportPiece(piece) {
 		hasParams = true;
 	});
 	let res = { key: piece.dataset.key };
-	// TODO comment
+	if (piece.dataset.comment != '') res.comment = piece.dataset.comment;
 	if (hasParams) res.params = params;
 	if (piece.dataset.key == 'psi:constant_number') {
 		res.constantValue = piece.querySelector('[data-value]').textContent;
@@ -162,6 +175,8 @@ export function importPiece(data) {
 			setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
 		}
 	}
+	if (data.comment) piece.dataset.comment = data.comment;
+	// TODO keep unknown data
 	if (data.constantValue) {
 		let value = piece.querySelector('[data-value]');
 		value.textContent = data.constantValue;

@@ -47,6 +47,24 @@ body {
 	padding: 0 0.5ch;
 }
 
+.text-control {
+	position: relative;
+	width: 100%; min-height: 2em;
+	margin: var(--pixel-size) 0;
+	color: var(--color-param);
+}
+
+.text-control [data-name]::before {
+	content: var(--param-name);
+}
+
+.text-control textarea {
+	box-sizing: border-box;
+	width: calc(100% - 4px); min-height: 1.2em;
+	padding: 0 0.5ch;
+	resize: vertical;
+}
+
 .related-control {
 	position: relative;
 	width: 100%;

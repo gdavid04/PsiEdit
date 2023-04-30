@@ -16,7 +16,10 @@ export function parseURLArgs() {
 		let spell = args.get('spell');
 		let match = spell.match(/^(L)?(?:([0-9]+)-)?(.*)$/);
 		let version = match[2];
-		let data = atob(match[3]); // base64 encoded
+		let data = match[3].replaceAll('_', '/').replaceAll('.', '+'); // base64 encoded
+		if (data.length % 4 == 1) data += '='; // add padding
+		else if (data.length % 4 == 2) data += '==';
+		data = atob(data);
 		if (match[1]) data = decompress(data); // LZW compressed spell data
 		if (version == 1) {
 			// PsiEdit format v1 compressed spell data
@@ -34,7 +37,7 @@ export function updateURLArgs() {
 		let args = new URLSearchParams();
 		args.set('cursor', `${selected.x + 1}-${selected.y + 1}`);
 		// base64 encoded LZW compressed PsiEdit format v1 compressed spell data
-		args.set('spell', 'L1-' + btoa(compress(String.fromCharCode.apply(null, exportGrid(cells, true)))));
+		args.set('spell', 'L1-' + btoa(compress(String.fromCharCode.apply(null, exportGrid(cells, true)))).replaceAll('/', '_').replaceAll('+', '.').replace(/=+$/, ''));
 		history.replaceState({}, '', `${location.pathname}?${args}`);
 	} else {
 		history.replaceState({}, '', location.pathname);

@@ -5,8 +5,8 @@ export default defineConfig({
 	base: '/PsiEdit/',
 	root: 'src',
 	build: {
-		outDir: '..',
-		emptyOutDir: false
+		outDir: '../dist',
+		emptyOutDir: true
 	},
 	plugins: [ topLevelAwait() ]
 });

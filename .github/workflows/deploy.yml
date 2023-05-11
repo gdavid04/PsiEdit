@@ -28,9 +28,6 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      - name: List files for debug
-        run: ls -R1a
-
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:

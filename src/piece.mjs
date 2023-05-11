@@ -41,7 +41,8 @@ export function getSortingName(piece) {
 }
 
 let paramControl, valueControl, textControl, relatedControl;
-loadHTML('controls.html').then(r => {
+import controlsUrl from './controls.html?url';
+loadHTML(controlsUrl).then(r => {
 	paramControl = r.querySelector('.param-control');
 	relatedControl = r.querySelector('.related-control');
 	valueControl = r.querySelector('.value-control');

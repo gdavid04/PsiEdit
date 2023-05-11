@@ -1,8 +1,12 @@
 import { createGrid, selectCell, exportGrid, importGrid } from './grid.mjs';
 import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
-import { snbt2json } from './snbt.mjs';
 import { parseURLArgs, updateURLArgs } from './urlargs.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
+
+import init from 'psi-spell-encode-wasm/psi_spell_encode_wasm';
+import wasmUrl from 'psi-spell-encode-wasm/psi_spell_encode_wasm_bg.wasm?url';
+import { spellToSnbt, snbtToSpell } from 'psi-spell-encode-wasm';
+await init(wasmUrl);
 
 const size = 9;
 export const width = size, height = size;
@@ -18,9 +22,11 @@ selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
 export let pieces = {};
+import psiPieces from './pieces/psi.html?url';
+import phiPieces from './pieces/phi.html?url';
 await Promise.allSettled([
-	'pieces/psi.html',
-	'pieces/phi.html'
+	psiPieces,
+	phiPieces
 ].map(loadPieceDesc));
 
 parseURLArgs();
@@ -53,12 +59,13 @@ function filterCatalog() {
 }
 
 function exportSpell() {
-	alert(JSON.stringify(exportGrid(cells))); // TODO proper dialog
+	prompt('Export Spell SNBT', spellToSnbt(exportGrid(cells))); // TODO proper dialog
 	updateURLArgs();
 }
 
 function importSpell() {
-	importGrid(snbt2json(prompt("Spell JSON")), cells); // TODO proper dialog
+	importGrid(snbtToSpell(prompt('Import Spell SNBT')), cells); // TODO proper dialog
+	updateURLArgs();
 	createEditor(editor, selected);
 }
 

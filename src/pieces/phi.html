@@ -1,0 +1,69 @@
+<meta data-repo="gdavid04/phi" data-namespace="phi">
+<div class="piece" data-type="trick_psion_wave">
+	<div class="param" data-name="Direction" data-key="_direction" data-color="green"></div>
+	<div class="param" data-name="Speed" data-key="_speed" data-color="red"></div>
+	<div class="param" data-name="Frequency" data-key="phi.spellparam.frequency" data-color="blue"></div>
+	<div class="param" data-name="Distance" data-key="_distance" data-color="cyan"></div>
+</div>
+<div class="piece" data-type="trick_shadow">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="purple"></div>
+</div>
+<div class="piece" data-type="trick_shadow_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="purple"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_early_evaluate">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+	<div class="param" data-name="Number" data-key="_number" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_to_degrees">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_to_radians">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_multiply_accumulate">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_vector_component_wise_multiply">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="green"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+	<div class="param" data-name="Vector C" data-key="_vector3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_split_vector">
+	<div class="param" data-name="Vector" data-key="_vector" data-color="green"></div>
+	<div class="param" data-name="X" data-key="_x" data-color="red" data-arrow="none" data-optional></div>
+	<div class="param" data-name="Y" data-key="_y" data-color="green" data-arrow="none" data-optional></div>
+	<div class="param" data-name="Z" data-key="_z" data-color="blue" data-arrow="none" data-optional></div>
+	<div class="line" data-trigger="_vector" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_x" data-color="red" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_y" data-color="green" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+	<div class="line" data-trigger="_z" data-color="blue" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/operator_split_vector_lines.png);"></div>
+</div>
+<div class="piece" data-type="connector_clockwise" data-sorting-name="00000000000-">
+	<!-- TODO arrows -->
+</div>
+<div class="piece" data-type="connector_counterclockwise" data-sorting-name="00000000000-">
+	<!-- TODO arrows -->
+</div>
+<div class="piece" data-type="connector_bidirectional" data-sorting-name="00000000000-">
+	<div class="param" data-name="From / To" data-key="phi.spellparam.from_to" data-color="gray" data-arrow="bidir"></div>
+	<div class="param" data-name="To / From" data-key="phi.spellparam.to_from" data-color="gray" data-arrow="bidir"></div>
+	<!-- TODO arrows -->
+	<div class="line" data-trigger="phi.spellparam.from_to" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to_from" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+</div>
+<div class="piece" data-type="connector_in_out" data-sorting-name="00000000000-">
+	<div class="param" data-name="From" data-key="phi.spellparam.from" data-color="gray"></div>
+	<div class="param" data-name="To / From" data-key="phi.spellparam.to_from" data-color="gray" data-arrow="bidir"></div>
+	<div class="param" data-name="To" data-key="phi.spellparam.to" data-color="gray" data-arrow="none"></div>
+	<!-- TODO arrows -->
+	<div class="line" data-trigger="phi.spellparam.from" data-half="1" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to_from" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+	<div class="line" data-trigger="phi.spellparam.to" data-half="2" style="--line-icon: url(https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/connector_bidirectional_lines.png);"></div>
+</div>

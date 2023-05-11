@@ -1,0 +1,598 @@
+<meta data-repo="Vazkii/Psi" data-namespace="psi">
+<div class="piece" data-type="selector_caster"></div>
+<div class="piece" data-type="selector_focal_point"></div>
+<div class="piece" data-type="selector_nearby_items">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_living">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_enemies">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_animals">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_projectiles">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_smeltables">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_loopcast_index"></div>
+<div class="piece" data-type="selector_block_broken"></div>
+<div class="piece" data-type="selector_block_side_broken"></div>
+<div class="piece" data-type="selector_attack_target"></div>
+<div class="piece" data-type="selector_sneak_status"></div>
+<div class="piece" data-type="selector_time"></div>
+<div class="piece" data-type="selector_attacker"></div>
+<div class="piece" data-type="selector_damage_taken"></div>
+<div class="piece" data-type="selector_ruler_vector"></div>
+<div class="piece" data-type="selector_item_presence">
+	<div class="param" data-name="Slot" data-key="_slot" data-color="blue" data-optional></div>
+</div>
+<div class="piece" data-type="selector_block_presence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="selector_saved_vector">
+	<div class="param" data-name="Number" data-key="_number" data-color="blue"></div>
+</div>
+<div class="piece" data-type="selector_eidos_changelog">
+	<div class="param" data-name="Number" data-key="_number" data-color="blue"></div>
+</div>
+<div class="piece" data-type="selector_nearby_charges"></div>
+<div class="piece" data-type="selector_nearby_players">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_vehicles">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_falling_blocks">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_nearby_glowing">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="selector_caster_energy"></div>
+<div class="piece" data-type="selector_caster_battery"></div>
+<div class="piece" data-type="selector_is_elytra_flying"></div>
+<div class="piece" data-type="selector_item_count"></div>
+<div class="piece" data-type="operator_sum" data-related="Invert=operator_subtract Vector=operator_vector_sum">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_subtract" data-related="Invert=operator_sum Vector=operator_vector_subtract">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_multiply" data-related="Invert=operator_divide Vector=operator_vector_multiply,phi:operator_vector_component_wise_multiply">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_divide" data-related="Invert=operator_multiply Int=operator_integer_divide Mod=operator_modulus Vector=operator_vector_divide">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="yellow" data-optional></div>
+</div>
+<div class="piece" data-type="operator_absolute">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_inverse">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_modulus" data-related="Divide=operator_divide,operator_integer_divide">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_integer_divide" data-related="Invert=operator_multiply Num=operator_divide Mod=operator_modulus">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="yellow" data-optional></div>
+</div>
+<div class="piece" data-type="operator_random">
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+	<div class="param" data-name="Min" data-key="_min" data-color="blue" data-optional></div>
+</div>
+<div class="piece" data-type="operator_sin" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_cos" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_asin" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_acos" data-related="Trig=operator_sin,operator_cos Inverse=operator_asin,operator_acos">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_max" data-related="Min=operator_min">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_min" data-related="Max=operator_max">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+	<div class="param" data-name="Number C" data-key="_number3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_square" data-related="Power=operator_square,operator_cube,operator_power Invert=operator_square_root">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_cube" data-related="Power=operator_square,operator_cube,operator_power">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_power" data-related="Power=operator_square,operator_cube,operator_power Invert=operator_root">
+	<div class="param" data-name="Base" data-key="_base" data-color="green"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_square_root" data-related="Root=operator_square_root,operator_root Invert=operator_square">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_log">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+	<div class="param" data-name="Base" data-key="_base" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_ceiling">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_floor">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_round">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_entity_position">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_entity_look">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_entity_motion">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_entity_axial_look">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_focused_entity">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_vector_raycast">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Ray" data-key="_ray" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="purple" data-optional></div>
+</div>
+<div class="piece" data-type="operator_vector_raycast_axis">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Ray" data-key="_ray" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="purple" data-optional></div>
+</div>
+<div class="piece" data-type="operator_vector_sum">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="green"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+	<div class="param" data-name="Vector C" data-key="_vector3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_vector_subtract">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+	<div class="param" data-name="Vector C" data-key="_vector3" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="operator_vector_multiply">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_vector_divide">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Number B" data-key="_number2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_vector_cross_product">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_vector_normalize">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_negate">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_magnitude">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_construct">
+	<div class="param" data-name="X" data-key="_x" data-color="red" data-optional></div>
+	<div class="param" data-name="Y" data-key="_y" data-color="green" data-optional></div>
+	<div class="param" data-name="Z" data-key="_z" data-color="blue" data-optional></div>
+</div>
+<div class="piece" data-type="operator_vector_extract_x" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_extract_y" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_extract_z" data-related="Axis=operator_vector_extract_x,operator_vector_extract_y,operator_vector_extract_z">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_project">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_vector_dot_product">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="red"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_closest_to_point">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_random_entity">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_list_add">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+	<div class="param" data-name="List" data-key="_list" data-color="yellow" data-optional></div>
+</div>
+<div class="piece" data-type="operator_list_remove">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+	<div class="param" data-name="List" data-key="_list" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_planar_normal_vector">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_rotate">
+	<div class="param" data-name="Vector" data-key="_vector" data-color="red"></div>
+	<div class="param" data-name="Axis" data-key="_axis" data-color="cyan"></div>
+	<div class="param" data-name="Angle" data-key="_angle" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_gamma_function">
+	<div class="param" data-name="Number A" data-key="_number1" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_list_size">
+	<div class="param" data-name="List" data-key="_list" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_list_union" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
+	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
+	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_list_intersection" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
+	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
+	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_list_exclusion" data-related="Set=operator_list_union,operator_list_intersection,operator_list_exclusion">
+	<div class="param" data-name="List A" data-key="_list1" data-color="blue"></div>
+	<div class="param" data-name="List B" data-key="_list2" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_list_index">
+	<div class="param" data-name="List" data-key="_list" data-color="cyan"></div>
+	<div class="param" data-name="Number" data-key="_number" data-color="purple"></div>
+</div>
+<div class="piece" data-type="operator_root" data-related="Root=operator_square_root,operator_root Invert=operator_power">
+	<div class="param" data-name="Number" data-key="_number" data-color="green"></div>
+	<div class="param" data-name="Root" data-key="_root" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_extract_sign" data-related="Vector=operator_vector_extract_sign">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_vector_extract_sign" data-related="Scalar=operator_extract_sign">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_closest_to_line">
+	<div class="param" data-name="Start" data-key="_ray_start" data-color="red"></div>
+	<div class="param" data-name="End" data-key="_ray_end" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_list" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_entity_health">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_vector_absolute">
+	<div class="param" data-name="Vector" data-key="_vector" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_entity_raycast">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Ray" data-key="_ray" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="purple" data-optional></div>
+</div>
+<div class="piece" data-type="operator_block_light">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_block_hardness">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+</div>
+<div class="piece" data-type="operator_block_comparator_strength">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+	<div class="param" data-name="Vector" data-key="_vector" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_block_side_solidity">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+	<div class="param" data-name="Vector" data-key="_vector" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_block_mining_level">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="operator_entity_height">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="operator_vector_piecewise_maximum">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="green"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+</div>
+<div class="piece" data-type="operator_vector_piecewise_minimum">
+	<div class="param" data-name="Vector A" data-key="_vector1" data-color="green"></div>
+	<div class="param" data-name="Vector B" data-key="_vector2" data-color="green"></div>
+</div>
+<div class="piece" data-type="constant_number">
+	<div class="center" data-value>0</div>
+</div>
+<div class="piece" data-type="constant_pi"></div>
+<div class="piece" data-type="constant_e"></div>
+<div class="piece" data-type="constant_tau"></div>
+<div class="piece" data-type="constant_wrapper">
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+	<div class="param" data-name="Constant" data-key="_constant" data-color="green"></div>
+</div>
+<div class="piece" data-type="connector" data-sorting-name="00000000000">
+	<div class="param" data-name="Target" data-key="_target" data-color="gray"></div>
+	<div class="line" data-trigger="in" data-side="top" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="in" data-side="bottom" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="in" data-side="left" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="in" data-side="right" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="_target" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+</div>
+<div class="piece" data-type="cross_connector" data-sorting-name="00000000000">
+	<div class="param" data-name="From 1" data-key="_from1" data-color="cross1"></div>
+	<div class="param" data-name="To 1" data-key="_to1" data-color="cross1" data-arrow="none"></div>
+	<div class="param" data-name="From 2" data-key="_from2" data-color="cross2"></div>
+	<div class="param" data-name="To 2" data-key="_to2" data-color="cross2" data-arrow="none"></div>
+	<div class="line" data-trigger="_from1" data-color="cross1" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="_to1" data-color="cross1" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="_from2" data-color="cross2" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+	<div class="line" data-trigger="_to2" data-color="cross2" style="--line-icon: url(https://raw.githubusercontent.com/Vazkii/Psi/master/src/main/resources/assets/psi/textures/spell/connector_lines.png);"></div>
+</div>
+<div class="piece" data-type="error_suppressor" data-sorting-name="00000000001"></div>
+<div class="piece" data-type="error_catch">
+	<div class="param" data-name="Target" data-key="_target" data-color="brown"></div>
+	<div class="param" data-name="Fallback" data-key="_fallback" data-color="gray"></div>
+</div>
+<div class="piece" data-type="trick_debug">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+	<div class="param" data-name="Number" data-key="_number" data-color="red" data-optional></div>
+</div>
+<div class="piece" data-type="trick_delay">
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_die">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_evaluate">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_add_motion">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Direction" data-key="_direction" data-color="green"></div>
+	<div class="param" data-name="Speed" data-key="_speed" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_explode">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_break_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_break_in_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_place_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Direction" data-key="_direction" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="trick_place_in_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+	<div class="param" data-name="Direction" data-key="_direction" data-color="cyan" data-optional></div>
+</div>
+<div class="piece" data-type="trick_infusion"></div>
+<div class="piece" data-type="trick_blink">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Distance" data-key="_distance" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_mass_blink">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Distance" data-key="_distance" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_mass_add_motion">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Direction" data-key="_direction" data-color="green"></div>
+	<div class="param" data-name="Speed" data-key="_speed" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_mass_exodus">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Position" data-key="_position" data-color="green"></div>
+	<div class="param" data-name="Speed" data-key="_speed" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_move_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+</div>
+<div class="piece" data-type="trick_move_block_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+	<div class="param" data-name="Direction" data-key="_direction" data-color="green"></div>
+</div>
+<div class="piece" data-type="trick_collapse_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_smite">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_blaze">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_torrent">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_overgrow">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_greater_infusion"></div>
+<div class="piece" data-type="trick_ebony_ivory"></div>
+<div class="piece" data-type="trick_speed">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_haste">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_strength">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_jump_boost">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_water_breathing">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_fire_resistance">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_invisibility">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_regeneration">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_resistance">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_slowness">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_weakness">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_wither">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Power" data-key="_power" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_ignite">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_eidos_anchor">
+	<div class="param" data-name="Time" data-key="_time" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_eidos_reversal">
+	<div class="param" data-name="Time" data-key="_time" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_smelt_item">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+</div>
+<div class="piece" data-type="trick_smelt_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_conjure_block">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="red" data-optional></div>
+</div>
+<div class="piece" data-type="trick_conjure_light">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="red" data-optional></div>
+</div>
+<div class="piece" data-type="trick_conjure_block_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="purple" data-optional></div>
+</div>
+<div class="piece" data-type="trick_switch_target_slot">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue" data-optional></div>
+	<div class="param" data-name="Shift" data-key="_shift" data-color="green" data-optional></div>
+</div>
+<div class="piece" data-type="trick_save_vector">
+	<div class="param" data-name="Number" data-key="_number" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_play_sound">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Instrument" data-key="_instrument" data-color="red"></div>
+	<div class="param" data-name="Pitch" data-key="_pitch" data-color="green" data-optional></div>
+	<div class="param" data-name="Volume" data-key="_volume" data-color="yellow" data-optional></div>
+</div>
+<div class="piece" data-type="trick_break_loop">
+	<div class="param" data-name="Number" data-key="_number" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_detonate">
+	<div class="param" data-name="Radius" data-key="_radius" data-color="green"></div>
+</div>
+<div class="piece" data-type="trick_till">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_till_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_change_slot">
+	<div class="param" data-name="Slot" data-key="_slot" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_smelt_block_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_collapse_block_sequence">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Target" data-key="_target" data-color="green"></div>
+	<div class="param" data-name="Max" data-key="_max" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_debug_spamless">
+	<div class="param" data-name="Target" data-key="_target" data-color="blue"></div>
+	<div class="param" data-name="Number" data-key="_number" data-color="red" data-optional></div>
+</div>
+<div class="piece" data-type="trick_night_vision">
+	<div class="param" data-name="Target" data-key="_target" data-color="yellow"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="blue"></div>
+</div>
+<div class="piece" data-type="trick_particle_trail">
+	<div class="param" data-name="Position" data-key="_position" data-color="blue"></div>
+	<div class="param" data-name="Ray" data-key="_ray" data-color="green"></div>
+	<div class="param" data-name="Distance" data-key="_distance" data-color="cyan"></div>
+	<div class="param" data-name="Time" data-key="_time" data-color="purple" data-optional></div>
+</div>
+<div class="piece" data-type="trick_spin_chamber">
+	<div class="param" data-name="Number" data-key="_number" data-color="red"></div>
+</div>
+<div class="piece" data-type="trick_russian_roulette"></div>

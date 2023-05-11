@@ -131,7 +131,7 @@ export async function loadPieces(html) {
 		namespace = namespace || e.dataset.namespace;
 	});
 	if (!repo || !namespace) {
-		console.error("Missing metadata in piece list");
+		console.error('Missing metadata in piece list');
 		return pieces;
 	}
 	html.querySelectorAll('[data-icon]').forEach(e => {
@@ -139,7 +139,7 @@ export async function loadPieces(html) {
 	});
 	try {
 		lang = await loadJSON(`https://raw.githubusercontent.com/${repo}/master/src/main/resources/assets/${namespace}/lang/en_us.json`);
-	} catch {}
+	} catch {} // eslint-disable-line no-empty
 	lang = lang || {};
 	html.querySelectorAll('.piece').forEach(e => {
 		if (repo && namespace) {
@@ -227,7 +227,7 @@ export function importPiece(data) {
 			let paramKeyLength = data[offset++];
 			let paramKey;
 			if (paramKeyLength == 0xFF) {
-				paramKey = '_' + builtinArgs[data[offset++]]; 
+				paramKey = '_' + builtinArgs[data[offset++]];
 			} else {
 				paramKey = new TextDecoder().decode(data.slice(offset, offset + paramKeyLength));
 				offset += paramKeyLength;
@@ -247,7 +247,7 @@ export function importPiece(data) {
 	}
 	let piece = createPiece(pieces[data.key]);
 	if (data.params) {
-		for (let [param, side] of Object.entries(data.params)) {
+		for (const [param, side] of Object.entries(data.params)) {
 			setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
 		}
 	}
@@ -278,7 +278,7 @@ export function pieceInterceptKey(ch, selected, editor = null) {
 	let piece = selected.cell.piece;
 	if (piece.dataset.key == 'psi:constant_number') {
 		// Phi style number constant editing
-		if ("FDfd".includes(ch)) return false;
+		if ('FDfd'.includes(ch)) return false;
 		let value = piece.querySelector('[data-value]');
 		let tmp = value.textContent;
 		if (ch == 'Backspace') {

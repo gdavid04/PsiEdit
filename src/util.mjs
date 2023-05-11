@@ -7,7 +7,7 @@ Node.prototype.div = function(...classes) {
 	let elem = div(...classes);
 	this.append(elem);
 	return elem;
-}
+};
 
 export async function loadHTML(url) {
 	let text = await fetch(url).then(r => r.text());

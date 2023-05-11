@@ -2,9 +2,12 @@ import { setPiece } from './piece.mjs';
 import { removePiece, createEditor, exportPiece, importPiece } from './piece.mjs';
 import './util.mjs';
 
+let spellName = 'PsiEdit';
+let modsRequired = [];
+
 export function createGrid(grid, width, height, editor = null, selected = null) {
 	let cells = [];
-	for (let x = 0; x < width; x++) {
+	for (let x = 0; x < width; x++) {
 		cells[x] = [];
 		for (let y = 0; y < height; y++) {
 			cells[x][y] = createCell(grid, cells, x, y, editor, selected);
@@ -77,10 +80,10 @@ export function exportGrid(cells, compact = false) {
 		}
 		return raw;
 	} else return {
-		modsRequired: [], // TODO required mods list, for now this is here to remove the compatibility warning on import
-		validSpell: true,
-		spellName: 'PsiEdit', // TODO custom name
-		spellList: res
+		'modsRequired': modsRequired, // TODO: Add mods to list when using their pieces.
+		'validSpell': true,
+		'spellName': spellName,
+		'spellList': res
 	};
 }
 
@@ -97,9 +100,7 @@ export function importGrid(from, cells) {
 		for (let x = 0; x < cells.width; x++) {
 			for (let y = 0; y < cells.height; y++) {
 				if ((masks[Math.floor(i / 8)] >> (7 - i % 8)) & 1) {
-					let length
-						= (from[offset + 0] << 0)
-						| (from[offset + 1] << 8);
+					let length = (from[offset + 0] << 0) | (from[offset + 1] << 8);
 					let piece = importPiece(from.subarray(offset + 2, offset + length + 2));
 					setPiece(cells[x][y], piece);
 					offset += length + 2;
@@ -109,6 +110,8 @@ export function importGrid(from, cells) {
 		}
 	} else {
 		// TODO validation and error messages
+		modsRequired = from.modsRequired;
+		spellName = from.spellName;
 		for (let pieceData of from.spellList) {
 			setPiece(cells[pieceData.x][pieceData.y], importPiece(pieceData.data));
 		}

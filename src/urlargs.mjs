@@ -23,6 +23,9 @@ export function parseURLArgs() {
 			switch (type) {
 			case 'L':
 				// LZW (Old)
+				data = match[3].replaceAll('_', '/').replaceAll('.', '+'); // base64 encoded
+				if (data.length % 4 == 1) data += '='; // add padding
+				else if (data.length % 4 == 2) data += '==';
 				importGrid(new Uint8Array([...decompress(atob(data))].map(c => c.charCodeAt())), cells);
 				break;
 			case 'G':

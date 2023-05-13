@@ -3,10 +3,11 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
+		"serve": "vite serve",
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"psi-spell-encode-wasm": "^1.0.4"
+		"psi-spell-encode-wasm": "^2.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.40.0",

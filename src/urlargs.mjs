@@ -4,7 +4,9 @@ import { selected, editor, cells, width, height } from './main.mjs';
 import { selectCell } from './grid.mjs';
 import { bound } from './util.mjs';
 import { decompress } from './lzw.mjs';
-import { spellToUrlSafe, snbtToSpell, urlSafeToSpell } from 'psi-spell-encode-wasm';
+import { snbtToSpell, urlSafeToSpell } from 'psi-spell-encode-wasm';
+import { urlSafeToSpellZstd } from 'psi-spell-encode-wasm';
+import { spellToUrlSafeZstd } from 'psi-spell-encode-wasm';
 
 export function parseURLArgs() {
 	let args = new URLSearchParams(location.search);
@@ -14,7 +16,7 @@ export function parseURLArgs() {
 	}
 	if (args.has('spell')) {
 		let spell = args.get('spell');
-		let match = spell.match(/^([LG])?(?:([0-9]+)-)?(.*)$/);
+		let match = spell.match(/^([LGZ])?(?:([0-9]+)-)?(.*)$/);
 		let type = match[1];
 		let version = match[2];
 		let data = match[3];
@@ -32,6 +34,10 @@ export function parseURLArgs() {
 				// WASM powered gzip + binary encoding
 				importGrid(urlSafeToSpell(data), cells);
 				break;
+			case 'Z':
+				// WASM powered zstd + binary encoding
+				importGrid(urlSafeToSpellZstd(data), cells);
+				break;
 			}
 		} else if (version == 2) {
 			importGrid(urlSafeToSpell(match[3]), cells);
@@ -47,7 +53,7 @@ export function updateURLArgs() {
 	if (cells.some(col => col.some(cell => cell.piece))) {
 		let args = new URLSearchParams();
 		args.set('cursor', `${selected.x + 1}-${selected.y + 1}`);
-		args.set('spell', 'G1-' + spellToUrlSafe(exportGrid(cells, false)));
+		args.set('spell', 'Z1-' + spellToUrlSafeZstd(exportGrid(cells, false)));
 		history.replaceState({}, '', `${location.pathname}?${args}`);
 	} else {
 		history.replaceState({}, '', location.pathname);

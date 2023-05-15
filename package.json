@@ -7,7 +7,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"psi-spell-encode-wasm": "^2.0.0"
+		"psi-spell-encode-wasm": "^2.0.1"
 	},
 	"devDependencies": {
 		"eslint": "^8.40.0",

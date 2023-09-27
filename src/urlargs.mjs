@@ -17,7 +17,6 @@ export function parseURLArgs() {
 		switch (version) {
 		case '1':
 			// WASM powered zstd + binary encoding
-			console.log(urlSafeToSpell(data));
 			importGrid(urlSafeToSpell(data), cells);
 			break;
 		case undefined:

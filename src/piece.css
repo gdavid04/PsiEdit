@@ -133,3 +133,18 @@ body {
 .param[data-side=left] { border-left-color: var(--color-param); }
 .param[data-side=right] { border-right-color: var(--color-param); }
 .param[data-side=off] { background-color: var(--color-param); border-radius: 50%; visibility: hidden; }
+
+.piece.unknown {
+	--piece-icon: url('https://raw.githubusercontent.com/gdavid04/phi/master/src/main/resources/assets/phi/textures/spell/base.png');
+}
+
+.piece.unknown [data-value] {
+	--scale-value: 0.5;
+	width: calc(var(--piece-size) - 2 * var(--pixel-size));
+	height: calc(var(--piece-size) - 2 * var(--pixel-size));
+	margin: var(--pixel-size);
+	align-items: safe center;
+	word-wrap: break-word;
+	word-break: break-all;
+	color: var(--color-unknown);
+}

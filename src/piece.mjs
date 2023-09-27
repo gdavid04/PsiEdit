@@ -41,18 +41,34 @@ export function getSortingName(piece) {
 }
 
 let paramControl, valueControl, textControl, relatedControl;
+let unknownPiece;
 import controlsUrl from './controls.html?url';
 loadHTML(controlsUrl).then(r => {
 	paramControl = r.querySelector('.param-control');
 	relatedControl = r.querySelector('.related-control');
 	valueControl = r.querySelector('.value-control');
 	textControl = r.querySelector('.text-control');
+	unknownPiece = r.querySelector('.piece.unknown');
 });
 
 export function createEditor(editor, selected) {
 	removeEditor(editor);
 	if (!selected.cell || !selected.cell.piece) return;
 	let piece = selected.cell.piece;
+	if (!piece.dataset.key) {
+		let elem = textControl.cloneNode(true);
+		elem.style.setProperty('--param-name', '"' + 'NBT' + '"');
+		elem.dataset.color = 'gray';
+		let value = elem.querySelector('[data-value]');
+		value.value = piece.dataset.nbt || '{}';
+		value.addEventListener('input', () => {
+			piece.dataset.nbt = value.value;
+			piece.querySelector('[data-value]').textContent = JSON.parse(value.value).key;
+		});
+		editor.element.append(elem);
+		editor.controls.push(elem);
+		return;
+	}
 	editor.element.style.setProperty('--piece-name', '"' + piece.dataset.name + '"');
 	editor.element.style.setProperty('--piece-desc', '"' + piece.dataset.desc + '"');
 	piece.querySelectorAll('.param').forEach(param => {
@@ -159,6 +175,7 @@ export async function loadPieces(html) {
 }
 
 export function exportPiece(piece) {
+	if (!piece.dataset.key) return JSON.parse(piece.dataset.nbt);
 	let params = {};
 	let hasParams = false;
 	piece.querySelectorAll('.param').forEach(param => {
@@ -175,6 +192,12 @@ export function exportPiece(piece) {
 }
 
 export function importPiece(data) {
+	if (!pieces[data.key]) {
+		let piece = createPiece(unknownPiece);
+		piece.dataset.nbt = JSON.stringify(data);
+		piece.querySelector('[data-value]').textContent = data.key;
+		return piece;
+	}
 	let piece = createPiece(pieces[data.key]);
 	if (data.params) {
 		for (let [param, side] of Object.entries(data.params)) {

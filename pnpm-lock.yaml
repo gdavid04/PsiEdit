@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   psi-spell-encode-wasm:
-    specifier: ^2.0.3
-    version: 2.0.3
+    specifier: ^2.0.4
+    version: 2.0.4
 
 devDependencies:
   eslint:
@@ -927,8 +927,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /psi-spell-encode-wasm@2.0.3:
-    resolution: {integrity: sha512-2AmgICn0APgr5KhAz8vKEdqSV65WxEUqtYmw5Vn2VyL2P61ZKN30hsaGHkQ56VI+2mrVktJr/91Gd31Tp5jdPQ==}
+  /psi-spell-encode-wasm@2.0.4:
+    resolution: {integrity: sha512-2wuedY/M7TdgEiNVpAGkvdYEMX28UHq88hPwjx8aQOPBVMyTUg2L1I9ApiLYN5Wy3IIPPnjyPbcgA1+RIvolaw==}
     dev: false
 
   /punycode@2.3.0:

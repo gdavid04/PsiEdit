@@ -200,7 +200,7 @@ export function importPiece(data) {
 	}
 	let piece = createPiece(pieces[data.key]);
 	if (data.params) {
-		for (let [param, side] of Object.entries(data.params)) {
+		for (let [param, side] of data.params) {
 			setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
 		}
 	}

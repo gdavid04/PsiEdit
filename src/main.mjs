@@ -25,6 +25,7 @@ const pieceList = document.querySelector('#piece-catalog');
 export let pieces = {};
 import psiPieces from './pieces/psi.html?url';
 import phiPieces from './pieces/phi.html?url';
+import { spellToSnbt } from 'psi-spell-encode-wasm';
 await Promise.allSettled([psiPieces, phiPieces].map(loadPieceDesc));
 
 parseURLArgs();
@@ -57,7 +58,7 @@ function filterCatalog() {
 }
 
 function exportSpell() {
-	prompt('Export Spell SNBT', JSON.stringify(exportGrid(cells))); // TODO proper dialog
+	prompt('Export Spell SNBT', spellToSnbt(exportGrid(cells))); // TODO proper dialog
 	updateURLArgs();
 }
 

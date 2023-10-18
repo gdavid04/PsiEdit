@@ -2,7 +2,7 @@ import { pieces } from './main.mjs';
 import { loadHTML, loadJSON } from './util.mjs';
 
 // used by PsiEdit format to compress parameter names
-const builtinArgs = [ 'target', 'number', 'number1', 'number2', 'number3', 'number4', 'vector1', 'vector2', 'vector3', 'vector4', 'position', 'min', 'max', 'power','x', 'y', 'z', 'radius', 'distance', 'time', 'base','ray', 'vector', 'axis', 'angle', 'pitch', 'instrument', 'volume', 'list1', 'list2', 'list', 'direction', 'from1', 'from2', 'to1', 'to2', 'root', 'toggle', 'mask', 'channel', 'slot', 'ray_end', 'ray_start' ];
+const builtinArgs = ['target', 'number', 'number1', 'number2', 'number3', 'number4', 'vector1', 'vector2', 'vector3', 'vector4', 'position', 'min', 'max', 'power', 'x', 'y', 'z', 'radius', 'distance', 'time', 'base', 'ray', 'vector', 'axis', 'angle', 'pitch', 'instrument', 'volume', 'list1', 'list2', 'list', 'direction', 'from1', 'from2', 'to1', 'to2', 'root', 'toggle', 'mask', 'channel', 'slot', 'ray_end', 'ray_start'];
 
 export function setPiece(cell, piece) {
 	removePiece(cell);
@@ -93,7 +93,7 @@ export function createEditor(editor, selected) {
 		value.addEventListener('input', () => {
 			let pieceValue = piece.querySelector('[data-value]');
 			pieceValue.textContent = value.value = value.value.substring(0, 5);
-			pieceValue.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][value.value.length - 1]);
+			pieceValue.style.setProperty('--scale-value', [1, 1, 0.8, 0.7, 0.6, 0.5][value.value.length - 1]);
 		});
 		editor.element.append(elem);
 		editor.controls.push(elem);
@@ -200,8 +200,14 @@ export function importPiece(data) {
 	}
 	let piece = createPiece(pieces[data.key]);
 	if (data.params) {
-		for (let [param, side] of Object.entries(data.params)) {
-			setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
+		if (data.params instanceof Map) {
+			for (let [param, side] of data.params) {
+				setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
+			}
+		} else {
+			for (let [param, side] of Object.entries(data.params)) {
+				setParamSide(piece.querySelector(`.param[data-key="${param}"]`), intToSide(side));
+			}
 		}
 	}
 	if (data.comment) piece.dataset.comment = data.comment;
@@ -209,7 +215,7 @@ export function importPiece(data) {
 	if (data.constantValue) {
 		let value = piece.querySelector('[data-value]');
 		value.textContent = data.constantValue;
-		value.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][data.constantValue.length - 1]);
+		value.style.setProperty('--scale-value', [1, 1, 0.8, 0.7, 0.6, 0.5][data.constantValue.length - 1]);
 	}
 	return piece;
 }
@@ -219,7 +225,7 @@ function sideToInt(side) {
 }
 
 function intToSide(side) {
-	return [ 'off', 'top', 'bottom', 'left', 'right' ][side];
+	return ['off', 'top', 'bottom', 'left', 'right'][side];
 }
 
 export function oppositeSide(side) {
@@ -259,7 +265,7 @@ export function pieceInterceptKey(ch, selected, editor = null) {
 		if (tmp == '') tmp = '0';
 		if (isNaN(parseFloat(tmp))) return false;
 		value.textContent = tmp;
-		value.style.setProperty('--scale-value', [ 1, 1, 0.8, 0.7, 0.6, 0.5 ][tmp.length - 1]);
+		value.style.setProperty('--scale-value', [1, 1, 0.8, 0.7, 0.6, 0.5][tmp.length - 1]);
 		if (editor) createEditor(editor, selected);
 		return true;
 	}

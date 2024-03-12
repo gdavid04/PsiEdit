@@ -1,7 +1,7 @@
 import { setPiece } from './piece.mjs';
 import { removePiece, createEditor, exportPiece, importPiece } from './piece.mjs';
 import './util.mjs';
-import { spellData } from './main.mjs';
+import { nameField, spellData } from './main.mjs';
 
 export function createGrid(grid, width, height, editor = null, selected = null) {
 	let cells = [];
@@ -77,6 +77,7 @@ export function importGrid(from, cells) {
 	// TODO validation and error messages
 	spellData.modsRequired = from.modsRequired;
 	spellData.spellName = from.spellName;
+	nameField.value = from.spellName;
 	for (let pieceData of from.spellList) {
 		setPiece(cells[pieceData.x][pieceData.y], importPiece(pieceData.data));
 	}

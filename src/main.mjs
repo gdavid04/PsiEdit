@@ -11,6 +11,7 @@ await init(wasmUrl);
 const size = 9;
 export const width = size, height = size;
 const grid = document.querySelector('#spell-grid');
+export const nameField = document.querySelector('#spell-name');
 const search = document.querySelector('#search');
 const exportButton = document.querySelector('#export');
 const importButton = document.querySelector('#import');
@@ -18,7 +19,7 @@ const deleteButton = document.querySelector('#delete');
 export let selected = {};
 export let editor = { element: document.querySelector('#piece-config'), controls: [], params: [], comment: null };
 export let cells = createGrid(grid, width, height, editor, selected);
-export let spellData = { spellName: 'PsiEdit', modsRequired: [] };
+export let spellData = { spellName: '', modsRequired: [] };
 selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
@@ -73,6 +74,7 @@ function deletePiece() {
 	createEditor(editor, selected);
 }
 
+nameField.addEventListener('input', () => spellData.spellName = nameField.value);
 search.addEventListener('input', filterCatalog);
 exportButton.addEventListener('click', exportSpell);
 importButton.addEventListener('click', importSpell);

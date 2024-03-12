@@ -17,7 +17,7 @@
 	mask-size: calc(2 * var(--line-scale));
 }
 
-.line:not([data-side]), .line[data-side=off] { visibility: hidden; }
+.line:not([data-side]), .line[data-side=off], .line[data-trigger=in]:not(.used) { visibility: hidden; }
 
 .line[data-side=top] { --line-pos: 0 100%; }
 .line[data-side=bottom] { --line-pos: var(--line-scale) 100%; }

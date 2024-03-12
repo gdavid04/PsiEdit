@@ -1,4 +1,4 @@
-import { pieces } from './main.mjs';
+import { cells, pieces } from './main.mjs';
 import { loadHTML, loadJSON } from './util.mjs';
 
 // used by PsiEdit format to compress parameter names
@@ -8,16 +8,17 @@ export function setPiece(cell, piece) {
 	removePiece(cell);
 	cell.element.append(piece);
 	cell.piece = piece;
+	updateLines();
 }
 
 export function removePiece(cell) {
 	if (!cell.piece) return;
 	cell.piece.remove();
 	cell.piece = null;
+	updateLines();
 }
 
 export function createPiece(template) {
-	// TODO: placeholder for unknown pieces
 	return template.cloneNode(true);
 }
 
@@ -26,6 +27,7 @@ export function setParamSide(param, side, selected = null, editor = null) {
 	if (editor) createEditor(editor, selected);
 	let line = param.parentNode.querySelector(`.line[data-trigger='${param.dataset.key}']`);
 	if (line) line.dataset.side = side;
+	updateLines();
 }
 
 export function getParamSide(param) {
@@ -34,6 +36,30 @@ export function getParamSide(param) {
 
 export function isParamOptional(param) {
 	return param.dataset.optional != null;
+}
+
+export function isInputSide(piece, side) {
+	for (let param of piece.querySelectorAll('.param')) {
+		if (param.dataset.arrow == 'none') continue;
+		if (param.dataset.side == side) return true;
+	}
+	return false;
+}
+
+export function updateLines() {
+	for (let x = 0; x < cells.width; x++) {
+		for (let y = 0; y < cells.height; y++) {
+			let cell = cells[x][y];
+			for (let line of cell.element.querySelectorAll('.line')) {
+				if (line.dataset.trigger != 'in') continue;
+				let nx = x + sideX(line.dataset.side);
+				let ny = y + sideY(line.dataset.side);
+				let nb = cells[nx]?.[ny];
+				let used = nb?.piece ? isInputSide(nb.piece, oppositeSide(line.dataset.side)) : false
+				line.classList.toggle('used', used);
+			}
+		}
+	}
 }
 
 export function getSortingName(piece) {
@@ -230,6 +256,14 @@ function intToSide(side) {
 
 export function oppositeSide(side) {
 	return { left: 'right', right: 'left', top: 'bottom', bottom: 'top', off: 'off' }[side];
+}
+
+export function sideX(side) {
+	return { left: -1, right: 1, top: 0, bottom: 0, off: 0 }[side];
+}
+
+export function sideY(side) {
+	return { left: 0, right: 0, top: -1, bottom: 1, off: 0 }[side];
 }
 
 export function pieceInterceptKey(ch, selected, editor = null) {

@@ -168,27 +168,32 @@ export function removeEditor(editor) {
 }
 
 export async function loadPieces(html) {
-	let pieces = {}, repo, namespace, lang;
+	let pieces = {}, repo, namespace, lang, branch;
 	html.querySelectorAll('meta').forEach(e => {
 		repo = repo || e.dataset.repo;
 		namespace = namespace || e.dataset.namespace;
+		branch = branch || e.dataset.branch;
 	});
 	if (!repo || !namespace) {
 		console.error('Missing metadata in piece list');
 		return pieces;
 	}
+	if (!branch) {
+		console.warn('Missing branch metadata in piece list, defaulting to master');
+		branch = 'master';
+	}
 	html.querySelectorAll('[data-icon]').forEach(e => {
-		e.style.setProperty('--icon', `url('https://raw.githubusercontent.com/${repo}/master/src/main/resources/assets/${namespace}/textures/spell/${e.dataset.icon}.png')`);
+		e.style.setProperty('--icon', `url('https://raw.githubusercontent.com/${repo}/${branch}/src/main/resources/assets/${namespace}/textures/spell/${e.dataset.icon}.png')`);
 	});
 	try {
-		lang = await loadJSON(`https://raw.githubusercontent.com/${repo}/master/src/main/resources/assets/${namespace}/lang/en_us.json`);
+		lang = await loadJSON(`https://raw.githubusercontent.com/${repo}/${branch}/src/main/resources/assets/${namespace}/lang/en_us.json`);
 	} catch {
 		console.error(`Failed to load language file for ${namespace}`);
 	}
 	lang = lang || {};
 	html.querySelectorAll('.piece').forEach(e => {
 		if (repo && namespace) {
-			e.style.setProperty('--piece-icon', `url('https://raw.githubusercontent.com/${repo}/master/src/main/resources/assets/${namespace}/textures/spell/${e.dataset.icon || e.dataset.type}.png')`);
+			e.style.setProperty('--piece-icon', `url('https://raw.githubusercontent.com/${repo}/${branch}/src/main/resources/assets/${namespace}/textures/spell/${e.dataset.icon || e.dataset.type}.png')`);
 		}
 		e.dataset.name = e.dataset.name || lang[`${namespace}.spellpiece.${e.dataset.type}`] || `${namespace}.spellpiece.${e.dataset.type}`;
 		e.dataset.desc = e.dataset.desc || lang[`${namespace}.spellpiece.${e.dataset.type}.desc`] || `${namespace}.spellpiece.${e.dataset.type}.desc`;

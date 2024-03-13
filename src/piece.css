@@ -139,7 +139,7 @@ body {
 .param[data-side=off] { background-color: var(--color-param); border-radius: 50%; visibility: hidden; }
 
 .piece.unknown {
-	--piece-icon: url('https://raw.githubusercontent.com/gdavid04/phi/1.16/src/main/resources/assets/phi/textures/spell/base.png');
+	--piece-icon: url('unknown.png');
 }
 
 .piece.unknown [data-value] {

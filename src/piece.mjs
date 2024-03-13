@@ -1,8 +1,5 @@
-import { cells, pieces } from './main.mjs';
+import { cells, pieces, side } from './main.mjs';
 import { loadHTML, loadJSON } from './util.mjs';
-
-// used by PsiEdit format to compress parameter names
-const builtinArgs = ['target', 'number', 'number1', 'number2', 'number3', 'number4', 'vector1', 'vector2', 'vector3', 'vector4', 'position', 'min', 'max', 'power', 'x', 'y', 'z', 'radius', 'distance', 'time', 'base', 'ray', 'vector', 'axis', 'angle', 'pitch', 'instrument', 'volume', 'list1', 'list2', 'list', 'direction', 'from1', 'from2', 'to1', 'to2', 'root', 'toggle', 'mask', 'channel', 'slot', 'ray_end', 'ray_start'];
 
 export function setPiece(cell, piece) {
 	removePiece(cell);
@@ -55,7 +52,7 @@ export function updateLines() {
 				let nx = x + sideX(line.dataset.side);
 				let ny = y + sideY(line.dataset.side);
 				let nb = cells[nx]?.[ny];
-				let used = nb?.piece ? isInputSide(nb.piece, oppositeSide(line.dataset.side)) : false
+				let used = nb?.piece ? isInputSide(nb.piece, oppositeSide(line.dataset.side)) : false;
 				line.classList.toggle('used', used);
 			}
 		}
@@ -106,9 +103,11 @@ export function createEditor(editor, selected) {
 		elem.querySelectorAll('[data-side]').forEach(side => side.addEventListener('click', () => {
 			setParamSide(param, side.dataset.side, selected, editor);
 		}));
+		elem.classList.toggle('editing', editor.params.length == side - 1);
 		editor.element.append(elem);
 		editor.controls.push(elem);
 		editor.params.push(param);
+		editor.paramControls.push(elem);
 	});
 	if (piece.dataset.key == 'psi:constant_number') {
 		let elem = valueControl.cloneNode(true);
@@ -163,6 +162,7 @@ export function removeEditor(editor) {
 	editor.controls.forEach(e => e.remove());
 	editor.controls = [];
 	editor.params = [];
+	editor.paramControls = [];
 	editor.values = [];
 	editor.comment = null;
 }

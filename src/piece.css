@@ -98,6 +98,10 @@ body {
 	content: var(--param-name);
 }
 
+.param-control.editing [data-name]::before {
+	text-decoration: underline;
+}
+
 .param-control[data-optional] .param[data-side=off] { visibility: visible; }
 
 .param-control .param[data-side=top] { top: 0; right: var(--param-size); }

@@ -80,7 +80,7 @@ exportButton.addEventListener('click', exportSpell);
 importButton.addEventListener('click', importSpell);
 deleteButton.addEventListener('click', deletePiece);
 
-let side;
+export let side;
 document.addEventListener('keydown', e => {
 	if (e.getModifierState('Control') && e.key == 'd') {
 		e.preventDefault();
@@ -103,9 +103,13 @@ document.addEventListener('keydown', e => {
 	}
 	if (pieceInterceptKey(e.key, selected, editor)) return;
 	if (['Delete', 'Backspace'].includes(e.key)) deletePiece();
-	if ('123456789'.includes(e.key)) side = e.key;
+	if ('123456789'.includes(e.key)) {
+		if (editor.params[side - 1]) editor.paramControls[side - 1].classList.toggle('editing', false);
+		side = e.key;
+	}
 	let param = editor.params[side - 1];
 	if (param) {
+		editor.paramControls[side - 1].classList.toggle('editing', true);
 		if (e.key == 'ArrowLeft') setParamSide(param, getParamSide(param) == 'left' && isParamOptional(param) ? 'off' : 'left', selected, editor);
 		if (e.key == 'ArrowRight') setParamSide(param, getParamSide(param) == 'right' && isParamOptional(param) ? 'off' : 'right', selected, editor);
 		if (e.key == 'ArrowUp') setParamSide(param, getParamSide(param) == 'top' && isParamOptional(param) ? 'off' : 'top', selected, editor);
@@ -127,7 +131,10 @@ document.addEventListener('keydown', e => {
 	if (e.key == 'i') importSpell();
 });
 document.addEventListener('keyup', e => {
-	if ('123456789'.includes(e.key)) side = null;
+	if ('123456789'.includes(e.key)) {
+		side = null;
+		editor.paramControls.forEach(p => p.classList.toggle('editing', false));
+	}
 });
 
 document.addEventListener('contextmenu', e => e.preventDefault());

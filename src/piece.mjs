@@ -200,6 +200,7 @@ export async function loadPieces(html) {
 		e.dataset.key = e.dataset.key || `${namespace}:${e.dataset.type}`;
 		e.dataset.sortingName = e.dataset.sortingName || e.dataset.name;
 		e.dataset.tooltip = e.dataset.name + '\n' + e.dataset.desc;
+		if (namespace != 'psi') e.dataset.tooltip += `\nAddon: ${namespace}`;
 		pieces[e.dataset.key] = e;
 	});
 	return {

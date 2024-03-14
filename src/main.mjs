@@ -37,8 +37,21 @@ export let pieces = {};
 export let pieceSources = {};
 import { spellToSnbt } from 'psi-spell-encode-wasm';
 const builtinSources = ['psi'].reduce((obj, list) => (obj[list] = 'pieces/' + list + '.html', obj), {});
+const addonSources = { ...builtinSources, ...['phi'].reduce((obj, list) => (obj[list] = 'pieces/' + list + '.html', obj), {}) };
 const loads = Promise.all([init(wasmUrl), ...Object.values(builtinSources)
 	.map(url => addPieceSource(url, true))]);
+
+{
+	let list = document.createElement('datalist');
+	sourceURL.parentNode.appendChild(list);
+	list.id = 'addon-sources';
+	sourceURL.setAttribute('list', list.id);
+	for (let source of Object.keys(addonSources)) {
+		let option = document.createElement('option');
+		option.value = source;
+		list.appendChild(option);
+	}
+}
 
 parseURLArgs(loads);
 
@@ -57,6 +70,7 @@ sourceURL.addEventListener('keydown', e => {
 });
 
 export async function addPieceSource(url, builtin = false, urlArg = false) {
+	if (addonSources[url]) url = addonSources[url];
 	let pieces = await loadPieceDesc(url);
 	if (pieceSources[pieces.namespace]) removePieceSource(pieces.namespace, true, urlArg);
 	let item = sourceList.div('source-item', 'horizontal', 'vcenter-items', ...builtin ? ['builtin'] : []);
@@ -88,6 +102,7 @@ export async function addPieceSource(url, builtin = false, urlArg = false) {
 	};
 	reorderSources();
 	rebuildCatalog();
+	// TODO rebuild grid
 }
 
 function reorderSources() {
@@ -107,6 +122,7 @@ function removePieceSource(namespace, replacing = false, urlArg = false) {
 		addPieceSource(builtinSources[namespace], true, urlArg);
 	}
 	rebuildCatalog();
+	// TODO rebuild grid
 }
 
 function rebuildCatalog() {

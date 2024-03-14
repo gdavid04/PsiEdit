@@ -69,16 +69,20 @@ sourceURL.addEventListener('keydown', e => {
 	}
 });
 
-export async function addPieceSource(url, builtin = false, urlArg = false) {
-	if (addonSources[url]) url = addonSources[url];
+export async function addPieceSource(urlOrName, builtin = false, urlArg = false) {
+	let url = addonSources[urlOrName] || urlOrName;
 	let pieces = await loadPieceDesc(url);
 	if (pieceSources[pieces.namespace]) removePieceSource(pieces.namespace, true, urlArg);
 	let item = sourceList.div('source-item', 'horizontal', 'vcenter-items', ...builtin ? ['builtin'] : []);
 	item.dataset.tooltip = `Repo: ${pieces.repo}\nBranch: ${pieces.branch}`;
 	if (builtin) item.dataset.tooltip += '\nBuilt-in';
+	else if (!addonSources[urlOrName]) {
+		item.classList.add('external');
+		item.dataset.tooltip += '\nImported';
+	}
 	let name = item.div('source-name');
 	name.textContent = pieces.namespace;
-	if (!builtin) {
+	if (!builtin && !addonSources[urlOrName]) {
 		let link = item.div('source-link');
 		link.textContent = url;
 	}
@@ -93,7 +97,7 @@ export async function addPieceSource(url, builtin = false, urlArg = false) {
 		remove.dataset.tooltip = builtinSources[pieces.namespace] ? 'Restore built-in' : 'Remove';
 		remove.i('fa-solid', builtinSources[pieces.namespace] ? 'fa-undo' : 'fa-minus');
 		remove.addEventListener('click', () => removePieceSource(pieces.namespace));
-		if (!urlArg) addAddonArg(url);
+		if (!urlArg) addAddonArg(urlOrName);
 	}
 	pieceSources[pieces.namespace] = {
 		item: item,

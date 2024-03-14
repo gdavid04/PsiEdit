@@ -1,0 +1,29 @@
+.piece-sources {
+	position: absolute;
+	z-index: 1000;
+	padding: var(--pixel-size);
+	background-color: var(--color-tooltip-bg);
+	border: 2px solid var(--color-tooltip-edge);
+}
+
+#source-url {
+	flex-grow: 1;
+}
+
+.piece-sources button {
+	width: calc(10 * var(--pixel-size));
+	height: calc(10 * var(--pixel-size));
+}
+
+.source-item {
+	user-select: text;
+	padding-left: var(--pixel-size);
+}
+
+#close-sources {
+	width: calc(6 * var(--pixel-size));
+	height: calc(6 * var(--pixel-size));
+	position: absolute;
+	top: calc(-5 * var(--pixel-size));
+	right: calc(-5 * var(--pixel-size));
+}

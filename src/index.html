@@ -34,9 +34,21 @@
 					<button id="import" data-tooltip="Import spell"><i class="fa-solid fa-file-import"></i></button>
 					<button id="export" data-tooltip="Export spell"><i class="fa-solid fa-file-export"></i></button>
 					<button id="delete" data-tooltip="Delete piece"><i class="fa-solid fa-trash"></i></button>
+					<button id="sources" data-tooltip="Addons"><i class="fa-solid fa-puzzle-piece"></i></button>
 				</div>
 			</div>
 		</main>
+		<div class="dialog center" hidden>
+			<div class="piece-sources">
+				<div class="title text-center">Addons</div>
+				<button id="close-sources" data-tooltip="Close"><i class="fa-solid fa-times"></i></button>
+				<div class="horizontal vcenter-items">
+					<input type="url" id="source-url" placeholder="Piece list URL">
+					<button id="add-source" data-tooltip="Add source"><i class="fa-solid fa-plus"></i></button>
+				</div>
+				<div class="sources-list" id="source-list"></div>
+			</div>
+		</div>
 		<script type="module" src="main.mjs"></script>
 	</body>
 </html>

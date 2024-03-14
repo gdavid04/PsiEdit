@@ -49,6 +49,10 @@ body * .center, body * .vcenter {
 	flex-direction: column;
 }
 
+.vcenter-items {
+	align-items: center;
+}
+
 [data-tooltip]::after {
 	transition: opacity linear 0.2s;
 	opacity: 0;
@@ -69,4 +73,16 @@ body * .center, body * .vcenter {
 	transition: none;
 	opacity: 1;
 	z-index: 3001;
+}
+
+.dialog {
+	z-index: 5000;
+}
+
+.dialog[hidden] {
+	display: none;
+}
+
+.text-center {
+	text-align: center;
 }

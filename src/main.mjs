@@ -16,6 +16,7 @@ const search = document.querySelector('#search');
 const exportButton = document.querySelector('#export');
 const importButton = document.querySelector('#import');
 const deleteButton = document.querySelector('#delete');
+const addonsButton = document.querySelector('#sources');
 export let selected = {};
 export let editor = { element: document.querySelector('#piece-config'), controls: [], params: [], comment: null };
 export let cells = createGrid(grid, width, height, editor, selected);
@@ -23,22 +24,52 @@ export let spellData = { spellName: '', modsRequired: [] };
 selectCell(cells, selected, 4, 4);
 
 const pieceList = document.querySelector('#piece-catalog');
+const pieceSourcesDialog = document.querySelector('.piece-sources').parentElement;
+const sourceList = document.querySelector('#source-list');
+const addSourceButton = document.querySelector('#add-source');
+const sourceURL = document.querySelector('#source-url');
+pieceSourcesDialog.addEventListener('click', () => pieceSourcesDialog.hidden = true);
+addonsButton.addEventListener('click', () => pieceSourcesDialog.hidden = false);
 export let pieces = {};
 import psiPieces from './pieces/psi.html?url';
 import phiPieces from './pieces/phi.html?url';
+export let pieceSources = {};
 import { spellToSnbt } from 'psi-spell-encode-wasm';
-await Promise.allSettled([psiPieces, phiPieces].map(loadPieceDesc));
+await Promise.allSettled([psiPieces, phiPieces].map(addPieceSource));
 
 parseURLArgs();
 
 async function loadPieceDesc(url) {
 	let desc = await loadHTML(url);
 	let loaded = await loadPieces(desc);
-	Object.assign(pieces, loaded);
+	return loaded;
+}
+
+addSourceButton.addEventListener('click', () => addPieceSource(sourceURL.value));
+sourceURL.addEventListener('keydown', e => { if (e.key == 'Enter') addPieceSource(sourceURL.value); });
+
+async function addPieceSource(url) {
+	let pieces = await loadPieceDesc(url);
+	let item = sourceList.div('source-item', 'horizontal', 'vcenter-items', 'hjustify');
+	item.dataset.tooltip = `Repo: ${pieces.repo} (${pieces.branch})\nURL: ${url}\nPieces: ${Object.keys(pieces.pieces).length}`;
+	let name = item.div('source-name');
+	name.textContent = pieces.namespace;
+	let remove = item.button('source-remove');
+	remove.dataset.tooltip = 'Remove';
+	remove.i('fa-solid', 'fa-minus');
+	remove.addEventListener('click', () => removePieceSource(url, item));
+	pieceSources[url] = pieces.pieces;
+	rebuildCatalog();
+}
+
+function removePieceSource(url, item) {
+	item.remove();
+	delete pieceSources[url];
 	rebuildCatalog();
 }
 
 function rebuildCatalog() {
+	pieces = Object.assign({}, ...Object.values(pieceSources));
 	pieceList.innerHTML = '';
 	Object.values(pieces).sort((a, b) => getSortingName(a) > getSortingName(b)).forEach(piece => {
 		let item = pieceList.div('catalog-item');

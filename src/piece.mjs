@@ -176,7 +176,7 @@ export async function loadPieces(html) {
 	});
 	if (!repo || !namespace) {
 		console.error('Missing metadata in piece list');
-		return pieces;
+		throw new Error('Missing metadata in piece list');
 	}
 	if (!branch) {
 		console.warn('Missing branch metadata in piece list, defaulting to master');
@@ -202,7 +202,12 @@ export async function loadPieces(html) {
 		e.dataset.tooltip = e.dataset.name + '\n' + e.dataset.desc;
 		pieces[e.dataset.key] = e;
 	});
-	return pieces;
+	return {
+		repo: repo,
+		namespace: namespace,
+		branch: branch,
+		pieces: pieces
+	};
 }
 
 export function exportPiece(piece) {

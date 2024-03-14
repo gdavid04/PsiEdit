@@ -34,6 +34,12 @@ input, textarea {
 
 textarea::-webkit-resizer { background: var(--color-fg); }
 
+.piece-sources * { font: calc(6 * var(--pixel-size)) mc; }
+
+.source-item:hover { background: var(--color-catalog-hover); }
+
+.dialog { background-color: rgba(0, 0, 0, calc(64 / 255)); }
+
 [data-value] { font: calc(8 * var(--pixel-size) * var(--scale-value)) mc; }
 textarea[data-value] { font: calc(6 * var(--pixel-size) * var(--scale-value)) mc; }
 

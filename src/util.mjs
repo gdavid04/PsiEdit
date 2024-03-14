@@ -1,13 +1,19 @@
-export function div(...classes) {
-	let elem = document.createElement('div');
+export function appendElem(parent, tag, ...classes) {
+	let elem = document.createElement(tag);
 	elem.classList.add(...classes);
+	parent.append(elem);
 	return elem;
 }
-Node.prototype.div = function(...classes) {
-	let elem = div(...classes);
-	this.append(elem);
-	return elem;
-};
+
+function elemFn(tag) {
+	Node.prototype[tag] = function(...classes) {
+		return appendElem(this, tag, ...classes);
+	};
+}
+
+elemFn('div');
+elemFn('button');
+elemFn('i');
 
 export async function loadHTML(url) {
 	let text = await fetch(url).then(r => r.text());

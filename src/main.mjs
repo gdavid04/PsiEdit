@@ -31,11 +31,9 @@ const sourceURL = document.querySelector('#source-url');
 pieceSourcesDialog.addEventListener('click', () => pieceSourcesDialog.hidden = true);
 addonsButton.addEventListener('click', () => pieceSourcesDialog.hidden = false);
 export let pieces = {};
-import psiPieces from './pieces/psi.html?url';
-import phiPieces from './pieces/phi.html?url';
 export let pieceSources = {};
 import { spellToSnbt } from 'psi-spell-encode-wasm';
-await Promise.allSettled([psiPieces, phiPieces].map(addPieceSource));
+await Promise.allSettled(['psi', 'phi'].map(list => addPieceSource('pieces/' + list + '.html')));
 
 parseURLArgs();
 

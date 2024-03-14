@@ -34,7 +34,7 @@ input, textarea {
 
 textarea::-webkit-resizer { background: var(--color-fg); }
 
-.piece-sources * { font: calc(6 * var(--pixel-size)) mc; }
+.piece-sources *:not(i) { font: calc(6 * var(--pixel-size)) mc; }
 
 .source-item:hover { background: var(--color-catalog-hover); }
 

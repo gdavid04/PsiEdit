@@ -16,9 +16,20 @@
 }
 
 .source-item {
-	user-select: text;
 	padding-left: var(--pixel-size);
+	height: calc(14 * var(--pixel-size));
 }
+
+.source-link {
+	user-select: all;
+	margin-left: calc(2 * var(--pixel-size));
+}
+
+.source-count {
+	margin-left: calc(2 * var(--pixel-size));
+}
+.source-count::before { content: '('; }
+.source-count::after { content: ')'; }
 
 #close-sources {
 	width: calc(6 * var(--pixel-size));

@@ -1,12 +1,11 @@
 import { createGrid, selectCell, exportGrid, importGrid } from './grid.mjs';
 import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParamOptional, getSortingName, createEditor, loadPieces, oppositeSide, pieceInterceptKey } from './piece.mjs';
-import { parseURLArgs, updateURLArgs } from './urlargs.mjs';
+import { addAddonArg, parseURLArgs, removeAddonArg, updateURLArgs } from './urlargs.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
 import init from 'psi-spell-encode-wasm/psi_spell_encode_wasm';
 import wasmUrl from 'psi-spell-encode-wasm/psi_spell_encode_wasm_bg.wasm?url';
 import { snbtToSpell } from 'psi-spell-encode-wasm';
-await init(wasmUrl);
 
 const size = 9;
 export const width = size, height = size;
@@ -28,14 +27,20 @@ const pieceSourcesDialog = document.querySelector('.piece-sources').parentElemen
 const sourceList = document.querySelector('#source-list');
 const addSourceButton = document.querySelector('#add-source');
 const sourceURL = document.querySelector('#source-url');
-pieceSourcesDialog.addEventListener('click', () => pieceSourcesDialog.hidden = true);
+pieceSourcesDialog.addEventListener('click', e => {
+	if (e.target == pieceSourcesDialog) pieceSourcesDialog.hidden = true;
+});
+document.querySelector('#close-sources').addEventListener('click', () => pieceSourcesDialog.hidden = true);
 addonsButton.addEventListener('click', () => pieceSourcesDialog.hidden = false);
+
 export let pieces = {};
 export let pieceSources = {};
 import { spellToSnbt } from 'psi-spell-encode-wasm';
-await Promise.allSettled(['psi', 'phi'].map(list => addPieceSource('pieces/' + list + '.html')));
+const builtinSources = ['psi'].reduce((obj, list) => (obj[list] = 'pieces/' + list + '.html', obj), {});
+const loads = Promise.all([init(wasmUrl), ...Object.values(builtinSources)
+	.map(url => addPieceSource(url, true))]);
 
-parseURLArgs();
+parseURLArgs(loads);
 
 async function loadPieceDesc(url) {
 	let desc = await loadHTML(url);
@@ -44,30 +49,68 @@ async function loadPieceDesc(url) {
 }
 
 addSourceButton.addEventListener('click', () => addPieceSource(sourceURL.value));
-sourceURL.addEventListener('keydown', e => { if (e.key == 'Enter') addPieceSource(sourceURL.value); });
+sourceURL.addEventListener('keydown', e => {
+	if (e.key == 'Enter') {
+		addPieceSource(sourceURL.value);
+		e.preventDefault();
+	}
+});
 
-async function addPieceSource(url) {
+export async function addPieceSource(url, builtin = false, urlArg = false) {
 	let pieces = await loadPieceDesc(url);
-	let item = sourceList.div('source-item', 'horizontal', 'vcenter-items', 'hjustify');
-	item.dataset.tooltip = `Repo: ${pieces.repo} (${pieces.branch})\nURL: ${url}\nPieces: ${Object.keys(pieces.pieces).length}`;
+	if (pieceSources[pieces.namespace]) removePieceSource(pieces.namespace, true, urlArg);
+	let item = sourceList.div('source-item', 'horizontal', 'vcenter-items', ...builtin ? ['builtin'] : []);
+	item.dataset.tooltip = `Repo: ${pieces.repo}\nBranch: ${pieces.branch}`;
+	if (builtin) item.dataset.tooltip += '\nBuilt-in';
 	let name = item.div('source-name');
 	name.textContent = pieces.namespace;
-	let remove = item.button('source-remove');
-	remove.dataset.tooltip = 'Remove';
-	remove.i('fa-solid', 'fa-minus');
-	remove.addEventListener('click', () => removePieceSource(url, item));
-	pieceSources[url] = pieces.pieces;
+	if (!builtin) {
+		let link = item.div('source-link');
+		link.textContent = url;
+	}
+	let count = item.div('source-count', 'flex-grow');
+	count.textContent = Object.keys(pieces.pieces).length;
+	// let reload = item.button('source-reload');
+	// reload.dataset.tooltip = 'Reload';
+	// reload.i('fa-solid', 'fa-sync');
+	// reload.addEventListener('click', () => addPieceSource(url, builtin));
+	if (!builtin) {
+		let remove = item.button('source-remove');
+		remove.dataset.tooltip = builtinSources[pieces.namespace] ? 'Restore built-in' : 'Remove';
+		remove.i('fa-solid', builtinSources[pieces.namespace] ? 'fa-undo' : 'fa-minus');
+		remove.addEventListener('click', () => removePieceSource(pieces.namespace));
+		if (!urlArg) addAddonArg(url);
+	}
+	pieceSources[pieces.namespace] = {
+		item: item,
+		url: url,
+		pieces: pieces.pieces
+	};
+	reorderSources();
 	rebuildCatalog();
 }
 
-function removePieceSource(url, item) {
-	item.remove();
-	delete pieceSources[url];
+function reorderSources() {
+	for (let [, { item }] of Object.entries(pieceSources).sort(([a], [b]) => a > b)) {
+		sourceList.appendChild(item);
+	}
+	for (let namespace of Object.keys(builtinSources).sort()) {
+		if (pieceSources[namespace]) sourceList.insertBefore(pieceSources[namespace].item, sourceList.firstChild);
+	}
+}
+
+function removePieceSource(namespace, replacing = false, urlArg = false) {
+	pieceSources[namespace].item.remove();
+	if (!urlArg) removeAddonArg(pieceSources[namespace].url);
+	delete pieceSources[namespace];
+	if (builtinSources[namespace] && !replacing) {
+		addPieceSource(builtinSources[namespace], true, urlArg);
+	}
 	rebuildCatalog();
 }
 
 function rebuildCatalog() {
-	pieces = Object.assign({}, ...Object.values(pieceSources));
+	pieces = Object.assign({}, ...Object.values(pieceSources).map(source => source.pieces));
 	pieceList.innerHTML = '';
 	Object.values(pieces).sort((a, b) => getSortingName(a) > getSortingName(b)).forEach(piece => {
 		let item = pieceList.div('catalog-item');

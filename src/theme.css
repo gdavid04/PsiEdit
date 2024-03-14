@@ -38,6 +38,11 @@ textarea::-webkit-resizer { background: var(--color-fg); }
 
 .source-item:hover { background: var(--color-catalog-hover); }
 
+.source-item.builtin .source-name { color: rgb(255, 255, 128); }
+.source-link { color: rgb(200, 200, 255); }
+.source-count { color: rgb(200, 255, 200); }
+.source-count::before, .source-count::after { color: rgb(128, 200, 128); }
+
 .dialog { background-color: rgba(0, 0, 0, calc(64 / 255)); }
 
 [data-value] { font: calc(8 * var(--pixel-size) * var(--scale-value)) mc; }

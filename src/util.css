@@ -86,3 +86,7 @@ body * .center, body * .vcenter {
 .text-center {
 	text-align: center;
 }
+
+.flex-grow {
+	flex-grow: 1;
+}

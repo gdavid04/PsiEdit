@@ -151,7 +151,7 @@ function filterCatalog() {
 }
 
 function exportSpell() {
-	prompt('Export Spell SNBT', spellToSnbt(exportGrid(cells))); // TODO proper dialog
+	prompt('Export Spell SNBT', /*spellToSnbt*/JSON.stringify(exportGrid(cells))); // TODO proper dialog, fix SNBT export
 	updateURLArgs();
 }
 

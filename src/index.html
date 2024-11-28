@@ -41,12 +41,19 @@
 		<div class="dialog center" hidden>
 			<div class="piece-sources">
 				<div class="title text-center">Addons</div>
-				<button id="close-sources" data-tooltip="Close"><i class="fa-solid fa-times"></i></button>
+				<button class="close-dialog" id="close-sources" data-tooltip="Close"><i class="fa-solid fa-times"></i></button>
 				<div class="horizontal vcenter-items">
 					<input type="url" id="source-url" placeholder="Piece list URL / addon">
 					<button id="add-source" data-tooltip="Add source"><i class="fa-solid fa-plus"></i></button>
 				</div>
 				<div class="sources-list" id="source-list"></div>
+			</div>
+		</div>
+		<div class="dialog center" hidden>
+			<div class="error-popup">
+				<div class="title text-center">Error</div>
+				<button class="close-dialog" id="close-error" data-tooltip="Close"><i class="fa-solid fa-times"></i></button>
+				<div id="error-message"></div>
 			</div>
 		</div>
 		<script type="module" src="main.mjs"></script>

@@ -1,0 +1,26 @@
+.error-popup {
+	position: absolute;
+	z-index: 1000;
+	padding: var(--pixel-size);
+	background-color: var(--color-error-bg);
+	border: 2px solid var(--color-error-edge);
+	color: var(--color-error-text);
+	min-width: 20%;
+}
+
+.error-popup .title {
+	color: var(--color-error-title);
+}
+
+.error-popup button {
+	width: calc(10 * var(--pixel-size));
+	height: calc(10 * var(--pixel-size));
+}
+
+#close-error {
+	width: calc(6 * var(--pixel-size));
+	height: calc(6 * var(--pixel-size));
+	position: absolute;
+	top: calc(-5 * var(--pixel-size));
+	right: calc(-5 * var(--pixel-size));
+}

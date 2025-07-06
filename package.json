@@ -8,10 +8,10 @@
 	},
 	"dependencies": {
 		"psi-spell-encode-wasm": "^2.0.8",
-		"psi-spell-encode-wasm-v3": "npm:psi-spell-encode-wasm@3"
+		"psi-spell-encode-wasm-v3": "npm:psi-spell-encode-wasm@^3.0.1"
 	},
 	"devDependencies": {
-		"eslint": "^8.40.0",
-		"vite": "^4.3.5"
+		"eslint": "^8.57.1",
+		"vite": "^4.5.14"
 	}
 }

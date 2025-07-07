@@ -3,9 +3,12 @@ import { setPiece, removePiece, createPiece, setParamSide, getParamSide, isParam
 import { addAddonArg, parseURLArgs, removeAddonArg, updateURLArgs } from './urlargs.mjs';
 import { loadHTML, bound, inBound } from './util.mjs';
 
-import init from 'psi-spell-encode-wasm/psi_spell_encode_wasm';
-import wasmUrl from 'psi-spell-encode-wasm/psi_spell_encode_wasm_bg.wasm?url';
-import { snbtToSpell } from 'psi-spell-encode-wasm';
+import init2 from "psi-spell-encode-wasm/psi_spell_encode_wasm";
+import wasmUrl2 from "psi-spell-encode-wasm/psi_spell_encode_wasm_bg.wasm?url";
+
+import init3 from "psi-spell-encode-wasm-v3/psi-spell-encode-wasm";
+import wasmUrl3 from "psi-spell-encode-wasm-v3/psi-spell-encode-wasm_bg.wasm?url";
+import { snbtToSpell } from "psi-spell-encode-wasm-v3";
 
 const size = 9;
 export const width = size, height = size;
@@ -35,10 +38,10 @@ addonsButton.addEventListener('click', () => pieceSourcesDialog.hidden = false);
 
 export let pieces = {};
 export let pieceSources = {};
-import { spellToSnbt } from 'psi-spell-encode-wasm';
+import { spellToSnbt } from 'psi-spell-encode-wasm-v3';
 const builtinSources = ['psi'].reduce((obj, list) => (obj[list] = 'pieces/' + list + '.html', obj), {});
 const addonSources = { ...builtinSources, ...['phi'].reduce((obj, list) => (obj[list] = 'pieces/' + list + '.html', obj), {}) };
-const loads = Promise.all([init(wasmUrl), ...Object.values(builtinSources)
+const loads = Promise.all([init2(wasmUrl2), init3(wasmUrl3), ...Object.values(builtinSources)
 	.map(url => addPieceSource(url, true))]);
 
 {

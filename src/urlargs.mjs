@@ -20,12 +20,14 @@ export async function parseURLArgs(builtinLoads = Promise.resolve()) {
 	if (args.has('spell')) {
 		let spell = args.get('spell');
 		let [, version, data] = spell.match(/^(?:([0-9]+)-)?(.*)$/);
+		let migrate = true;
 		switch (version) {
 		case '1':
 			// WASM powered zstd + binary encoding (v2)
 			importGrid(urlSafeToSpell2(data), cells);
 			break;
 		case '2':
+			migrate = false;
 			// WASM powered zstd + binary encoding (v3)
 			importGrid(urlSafeToSpell3(data), cells);
 			break;
@@ -34,6 +36,7 @@ export async function parseURLArgs(builtinLoads = Promise.resolve()) {
 			importGrid(snbtToSpell3(decodeURIComponent(atob(data))), cells);
 			break;
 		}
+		if (migrate) updateURLArgs(true);
 		createEditor(editor, selected);
 	}
 }

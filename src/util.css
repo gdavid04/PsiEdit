@@ -63,6 +63,7 @@ body * .center, body * .vcenter {
 	left: var(--pixel-size);
 	border: 2px solid var(--color-tooltip-edge);
 	background-color: var(--color-tooltip-bg);
+	color: var(--color-tooltip-text);
 	padding: 0 5px;
 	content: attr(data-tooltip);
 	pointer-events: none;

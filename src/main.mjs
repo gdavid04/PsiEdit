@@ -154,7 +154,24 @@ function filterCatalog() {
 }
 
 function exportSpell() {
-	prompt('Export Spell SNBT', /*spellToSnbt*/JSON.stringify(exportGrid(cells))); // TODO proper dialog, fix SNBT export
+	let snbt = /*spellToSnbt*/JSON.stringify(exportGrid(cells)) // TODO SNBT export
+	navigator.clipboard.writeText(snbt).then(() => {
+		let icon = exportButton.querySelector('.fa-file-export');
+		if (icon) {
+			let tooltip = exportButton.dataset.tooltip;
+			exportButton.classList.add('success');
+			exportButton.dataset.tooltip = 'Copied to clipboard';
+			icon.classList.replace('fa-file-export', 'fa-check');
+			setTimeout(() => {
+				exportButton.classList.remove('success');
+				exportButton.dataset.tooltip = tooltip;
+				icon.classList.replace('fa-check', 'fa-file-export')
+			}, 1000);
+		}
+	}, err => {
+		console.error("could not copy to clipboard", err);
+		prompt('Export Spell SNBT', snbt); // TODO proper dialog
+	})
 	updateURLArgs();
 }
 

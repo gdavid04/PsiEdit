@@ -25,6 +25,18 @@ body {
 	--color-unknown: rgb(255, 128, 0);
 }
 
+* {
+	--color-tooltip-text: var(--color-text);
+}
+
+button.success {
+	--color-cell-bg: rgb(28, 56, 28);
+	--color-cell-edge-bright: rgb(51, 102, 51);
+	--color-cell-edge-dark: rgb(11, 22, 11);
+	--color-text: rgb(200, 255, 200);
+	--color-tooltip-text: rgb(128, 255, 128);
+}
+
 body, button {
 	font: calc(8 * var(--pixel-size)) mc;
 }
@@ -43,7 +55,7 @@ textarea::-webkit-resizer { background: var(--color-fg); }
 .source-item:hover { background: var(--color-catalog-hover); }
 
 .source-item.builtin .source-name { color: rgb(255, 255, 128); }
-.source-item.external .source-name { color: rgb(255, 200	, 128); }
+.source-item.external .source-name { color: rgb(255, 200, 128); }
 .source-link { color: rgb(200, 200, 255); }
 .source-count { color: rgb(200, 255, 200); }
 .source-count::before, .source-count::after { color: rgb(128, 200, 128); }
